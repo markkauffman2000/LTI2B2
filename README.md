@@ -1,14 +1,17 @@
-Example Spring B2
+LTI 2.0 Building Block Prototype
 =================
 
-This project is an example Building Block (B2) for Blackboard Learn using the Spring APIs that Blackboard provides for third party developers.  
+This project is a prototype Building Block integration demonstrating the viability of LTI 2.0 in Blackboard Learn.
 
 ### Building
 To build the project, just run:
 
-gradlew build
+gradle build
 
 ### Deploying
-To deploy the B2 to your Learn server, run:
+If using the vagrant VM image provided by Blackboard, the build.gradle file is set up to deploy to localhost:9876. You can simply run:
 
-gradlew -Dserver=host:port deployB2
+gradle deployB2
+
+To deploy to another Learn server, change the remoteServer and remoteInstance variables in build.gradle first.
+
