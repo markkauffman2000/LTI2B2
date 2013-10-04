@@ -1,6 +1,7 @@
 apply plugin: "java"
 apply plugin: "war"
 apply plugin: "maven"
+apply plugin: "eclipse"
 
 // define the version for the project when publishing to maven
 group "blackboard.plugin"
@@ -10,6 +11,8 @@ project.ext {
   learnVersion = "9.1.110082.0"
   springVersion = "3.1.1.RELEASE"
   hibernateVersion = "4.1.10.Final"
+  deployServer = "localhost:9876"
+  deployInstance = "BBLEARN"
 }
 
 repositories {
@@ -58,9 +61,9 @@ dependencies {
 // Add a task to deploy a B2 using starting block
 task deployB2( dependsOn: "war" ) << {
       ant.taskdef( name: "b2deploy", classname: "org.oscelot.ant.B2DeployTask", classpath: project.configurations.buildUtils.asPath )
-      ant.b2deploy( localfilepath: project.war.archivePath, host: System.getProperty("server"), courseorgavailable: 'true', clean: 'true' )
+      ant.b2deploy( localfilepath: project.war.archivePath, host: project.ext.deployServer, courseorgavailable: 'true', clean: 'true', webappName: 'bb-starting-block-' + project.ext.deployInstance )
 }
 
 task wrapper(type: Wrapper) {
-  gradleVersion = '1.5'
+  gradleVersion = '1.6'
 }
