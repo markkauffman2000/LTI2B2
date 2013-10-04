@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/!svn/ver/123401/basiclti/branches/BLTI-230/basiclti-util/src/java/net/oauth/http
+END
+HttpResponseMessage.java
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/!svn/ver/123401/basiclti/branches/BLTI-230/basiclti-util/src/java/net/oauth/http/HttpResponseMessage.java
+END
+HttpMessage.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/!svn/ver/123401/basiclti/branches/BLTI-230/basiclti-util/src/java/net/oauth/http/HttpMessage.java
+END
+HttpMessageDecoder.java
+K 25
+svn:wc:ra_dav:version-url
+V 109
+/svn/!svn/ver/123401/basiclti/branches/BLTI-230/basiclti-util/src/java/net/oauth/http/HttpMessageDecoder.java
+END
+HttpClient.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/!svn/ver/123401/basiclti/branches/BLTI-230/basiclti-util/src/java/net/oauth/http/HttpClient.java
+END
