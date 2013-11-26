@@ -1,6 +1,6 @@
 /*
- * $URL: https://source.sakaiproject.org/svn/basiclti/branches/BLTI-230/basiclti-util/src/java/org/imsglobal/basiclti/BasicLTIUtil.java $
- * $Id: BasicLTIUtil.java 128883 2013-08-22 02:11:34Z csev@umich.edu $
+ * $URL: https://source.sakaiproject.org/svn/basiclti/trunk/basiclti-util/src/java/org/imsglobal/basiclti/BasicLTIUtil.java $
+ * $Id: BasicLTIUtil.java 131915 2013-11-23 15:56:09Z csev@umich.edu $
  *
  * Copyright (c) 2008 IMS GLobal Learning Consortium
  *
@@ -45,10 +45,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
+import java.util.Iterator;
+import java.util.Enumeration;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+import java.net.URL;
+
+import javax.servlet.http.HttpServletRequest;
 
 /* Leave out until we have JTidy 0.8 in the repository 
  import org.w3c.tidy.Tidy;
@@ -56,7 +62,7 @@ import java.util.regex.Pattern;
  */
 
 /**
- * Some Utility code for IMS Basic LTI
+ * Some Utility code for IMS LTI
  * http://www.anyexample.com/programming/java
  * /java_simple_class_to_compute_sha_1_hash.xml
  * <p>
@@ -580,131 +586,6 @@ public class BasicLTIUtil {
 		return htmltext;
 	}
 
-	// Parse a provider profile with lots of error checking...
-	public static String []  parseToolProfile(List<Properties> theTools, Properties info, JSONObject jsonObject)
-	{
-
-		JSONObject tool_profile = (JSONObject) jsonObject.get("tool_profile");
-		if ( tool_profile == null  ) {
-			return new String[]{"deploy.register.parse", "JSON missing tool_profile"};
-		}
-		JSONObject product_instance = (JSONObject) tool_profile.get("product_instance");
-		if ( product_instance == null  ) {
-			return new String[]{"deploy.register.parse", "JSON missing product_instance"};
-		}
-
-		String instance_guid = (String) product_instance.get("guid");
-		if ( instance_guid == null  ) {
-			return new String[]{"deploy.register.parse", "JSON missing product_info / guid"};
-		}
-		info.put("instance_guid",instance_guid);
-
-		JSONObject product_info = (JSONObject) product_instance.get("product_info");
-		if ( product_info == null  ) {
-			return new String[]{"deploy.register.parse", "JSON missing product_info"};
-		}
-
-		// We want a name, but don't (yet) demand it
-		JSONObject product_name = product_info == null ? null : (JSONObject) product_info.get("product_name");
-		String productTitle = product_name == null ? null : (String) product_name.get("default_value");
-		JSONObject description = product_info == null ? null : (JSONObject) product_info.get("description");
-		String productDescription = product_name == null ? null : (String) description.get("default_value");
-		if ( productTitle == null || productDescription == null ) {
-			return new String[]{"deploy.register.parse", "JSON missing product_name or description "};
-		}
-
-		info.put("product_name", productTitle);
-		info.put("description", productDescription);
-
-		JSONArray base_url_choices = (JSONArray) tool_profile.get("base_url_choice");
-		if ( base_url_choices == null  ) {
-			return new String[]{"deploy.register.parse", "JSON missing base_url_choices"};
-		}
-		String secure_base_url = null;
-		String default_base_url = null;
-		for ( Object o : base_url_choices ) {
-			JSONObject url_choice = (JSONObject) o;
-			secure_base_url = (String) url_choice.get("secure_base_url");
-			default_base_url = (String) url_choice.get("default_base_url");
-		}
-		
-		String launch_url = secure_base_url;
-		if ( launch_url == null ) launch_url = default_base_url;
-		if ( launch_url == null ) {
-			return new String[]{"deploy.register.launch", "Unable to determine launch URL"};
-		}
-
-		JSONArray resource_handlers = (JSONArray) tool_profile.get("resource_handler");
-		if ( resource_handlers == null  ) {
-			return new String[]{"deploy.register.parse", "JSON missing resource_handlers"};
-		}
-
-		// Loop through resource handlers, read, and check for errors
-		for(Object o : resource_handlers ) {
-			JSONObject resource_handler = (JSONObject) o;
-			String resource_type = (String) resource_handler.get("resource_type");
-			if ( resource_type == null ) {
-				return new String[]{"deploy.register.parse", "JSON missing resource_type"};
-			}
-			JSONArray messages = (JSONArray) resource_handler.get("message");
-			if ( messages == null ) {
-				return new String[]{"deploy.register.parse", "JSON missing resource_handler / message"};
-			}
-			JSONObject titleObject = (JSONObject) resource_handler.get("name");
-			String title = titleObject == null ? null : (String) titleObject.get("default_value");
-			if ( title == null || titleObject == null ) {
-				return new String[]{"deploy.register.parse", "JSON missing resource_handler / name / default_value"};
-			}
-
-			JSONObject buttonObject = (JSONObject) resource_handler.get("short_name");
-			String button = buttonObject == null ? null : (String) buttonObject.get("default_value");
-		
-			JSONObject descObject = (JSONObject) resource_handler.get("description");
-			String resourceDescription = descObject == null ? null : (String) descObject.get("default_value");
-
-			String path = null;
-			JSONArray parameter = null;
-			JSONArray enabled_capability = null; 
-			for ( Object m : messages ) {
-				JSONObject message = (JSONObject) m;
-				String message_type = (String) message.get("message_type");
-				if ( ! "basic-lti-launch-request".equals(message_type) ) continue;
-				if ( path != null ) {
-					return new String[]{"deploy.register.messages", "A resource_handler cannot have more than one basic-lti-launch-request message RT="+resource_type};
-				}
-				path = (String) message.get("path");
-				if ( path == null ) {
-					return new String[]{"deploy.register.nopath", "A basic-lti-launch-request message must have a path RT="+resource_type};
-				} 
-				parameter = (JSONArray) message.get("parameter");
-				enabled_capability = (JSONArray) message.get("enabled_capability");
-			}
-
-			// Ignore everything except launch handlers
-			if ( path == null ) continue;
-
-			// Passed all the tests...  Lets keep it...
-			Properties theTool = new Properties();
-
-			theTool.put("resource_type", resource_type);
-			if ( title == null ) title = productTitle;
-			if ( title != null ) theTool.put("title", title);
-			if ( button != null ) theTool.put("button", button);
-			if ( resourceDescription == null ) resourceDescription = productDescription;
-			if ( resourceDescription != null ) theTool.put("description", resourceDescription);
-			if ( parameter != null ) theTool.put("parameter", parameter.toString());
-			if ( enabled_capability != null ) theTool.put("enabled_capability", parameter.toString());
-
-			// Someone above us should validate the URL...
-			String thisLaunch = launch_url;
-			if ( ! thisLaunch.endsWith("/") && ! path.startsWith("/") ) thisLaunch = thisLaunch + "/";
-			thisLaunch = thisLaunch + path;
-			theTool.put("launch", thisLaunch);
-			theTools.add(theTool);
-		}
-		return null;  // All good
-	}
-
 	/**
 	 * @deprecated See: {@link #parseDescriptor(Map, Map, String)}
 	 * @param launch_info
@@ -900,10 +781,8 @@ public class BasicLTIUtil {
 	 * @param value
 	 */
 	public static void setProperty(Properties props, String key, String value) {
-		if (value == null)
-			return;
-		if (value.trim().length() < 1)
-			return;
+		if (value == null) return;
+		if (value.trim().length() < 1) return;
 		props.setProperty(key, value);
 	}
 
@@ -919,6 +798,40 @@ public class BasicLTIUtil {
 		retval = retval.replace("=", "&#61;");
 		return retval;
 	}
+
+	/**
+	 * Simple utility method deal with a request that has the wrong URL when behind 
+     * a proxy.
+	 * 
+	 * @param request
+     * @param extUrl
+     *   The url that the external world sees us as responding to.  This needs to be
+     *   up to but not including the last slash like and not include any path information
+     *   http://www.sakaiproject.org - although we do compensate for extra stuff at the end.
+	 * @return
+     *   The full path of the request with extUrl in place of whatever the request
+     *   thinks is the current URL.
+	 */
+    static public String getRealPath(String servletUrl, String extUrl)
+    {
+        Pattern pat = Pattern.compile("^https??://[^/]*");
+        // Deal with potential bad extUrl formats
+        Matcher m = pat.matcher(extUrl);
+        if (m.find()) {
+            extUrl = m.group(0);
+        }
+
+        String retval = pat.matcher(servletUrl).replaceFirst(extUrl);
+        return retval;
+    }
+
+	@SuppressWarnings("unchecked")
+    static public String getRealPath(HttpServletRequest request, String extUrl)
+    {
+        String URLstr = request.getRequestURL().toString();
+        String retval = getRealPath(URLstr, extUrl);
+        return retval;
+    }
 
 	/**
 	 * Simple utility method to help with the migration from Properties to

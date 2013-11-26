@@ -1,6 +1,8 @@
 
 package org.imsglobal.lti2.objects;
 
+import org.imsglobal.lti2.LTI2Config;
+
 import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Generated;
@@ -23,14 +25,20 @@ public class Product_instance {
     private String guid;
     @JsonProperty("product_info")
     private Product_info product_info;
+    @JsonProperty("service_owner")
+    private Service_owner service_owner;
+    @JsonProperty("service_provider")
+    private Service_provider service_provider;
     @JsonProperty("support")
     private Support support;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    public Product_instance(String guid, Product_info info, String support_email) {
-        this.guid = guid;
-        this.product_info = info;
-        this.support = new Support(support_email);
+    public Product_instance(LTI2Config cnf) {
+        this.guid = cnf.getGuid();
+        this.product_info = new Product_info(cnf);
+        this.service_owner = new Service_owner(cnf);
+        this.service_provider = new Service_provider(cnf);
+        this.support = new Support(cnf.getSupport_email());
     }
 
     @JsonProperty("guid")
@@ -51,6 +59,26 @@ public class Product_instance {
     @JsonProperty("product_info")
     public void setProduct_info(Product_info product_info) {
         this.product_info = product_info;
+    }
+
+    @JsonProperty("service_owner")
+    public Service_owner getService_owner() {
+        return service_owner;
+    }
+
+    @JsonProperty("service_owner")
+    public void setService_owner(Service_owner service_owner) {
+        this.service_owner = service_owner;
+    }
+
+    @JsonProperty("service_provider")
+    public Service_provider getService_provider() {
+        return service_provider;
+    }
+
+    @JsonProperty("service_provider")
+    public void setService_provider(Service_provider service_provider) {
+        this.service_provider = service_provider;
     }
 
     @JsonProperty("support")

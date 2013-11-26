@@ -1,6 +1,6 @@
 /**********************************************************************************
- * $URL: https://source.sakaiproject.org/svn/basiclti/branches/BLTI-230/basiclti-util/src/java/org/imsglobal/basiclti/XMLMap.java $
- * $Id: XMLMap.java 127880 2013-07-28 14:17:06Z csev@umich.edu $
+ * $URL: https://source.sakaiproject.org/svn/basiclti/trunk/basiclti-util/src/java/org/imsglobal/basiclti/XMLMap.java $
+ * $Id: XMLMap.java 127876 2013-07-28 13:45:04Z csev@umich.edu $
  **********************************************************************************
  *
  * Copyright (c) 2009 IMS GLobal Learning Consortium, Inc.

@@ -1,10 +1,14 @@
 
 package org.imsglobal.lti2.objects;
 
+import org.imsglobal.lti2.LTI2Config;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Collections;
+
 import javax.annotation.Generated;
 import org.codehaus.jackson.annotate.JsonAnyGetter;
 import org.codehaus.jackson.annotate.JsonAnySetter;
@@ -21,13 +25,13 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
     "lti_version",
     "guid",
     "product_instance",
-    "capability_enabled",
+    "capability_offered",
     "service_offered"
 })
 public class ToolConsumer {
 
     @JsonProperty("@context")
-    private List<String> _context = new ArrayList<String>();
+    private List<Object> _context = new ArrayList<Object>();
     @JsonProperty("@type")
     private String _type;
     @JsonProperty("@id")
@@ -38,33 +42,37 @@ public class ToolConsumer {
     private String guid;
     @JsonProperty("product_instance")
     private Product_instance product_instance;
-    @JsonProperty("capability_enabled")
-    private List<String> capability_enabled = new ArrayList<String>();
+    @JsonProperty("capability_offered")
+    private List<String> capability_offered = new ArrayList<String>();
     @JsonProperty("service_offered")
     private List<Service_offered> service_offered = new ArrayList<Service_offered>();
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
     public static String[] STANDARD_CAPABILITIES = {
-        "Person.name.given" , "Person.name.family" , "Person.email.primary" ,
-        "User.image" , "Result.sourcedId" , "basic-lti-launch-request" , 
-        "Result.autocreate",
-        "Result.sourcedGUID" } ;
+        "basic-lti-launch-request" , "User.id", "User.image" , 
+        "CourseSection.sourcedId", "Person.sourcedId", "Membership.role"
+    } ;
 
     // Constructor
-    public ToolConsumer(String guid, Product_instance product_instance) {
-        this._context.add("http://www.imsglobal.org/imspurl/lti/v2/ctx/ToolConsumerProfile");
+    public ToolConsumer(String guid, String tcp, LTI2Config cnf) {
+        this._context.add("http://purl.imsglobal.org/ctx/lti/v2/ToolConsumerProfile");
+		NamedContext nc = new NamedContext();
+		nc.setAdditionalProperties("tcp", tcp);
+        this._context.add(nc);
         this._type = "ToolConsumerProfile";
         this.lti_version = "LTI-2p0";
-        this.product_instance = product_instance;
+        this.guid = guid;
+        this.product_instance = new Product_instance(cnf);
+        addCapabilites(STANDARD_CAPABILITIES);
     }
 
     @JsonProperty("@context")
-    public List<String> get_context() {
+    public List<Object> get_context() {
         return _context;
     }
 
     @JsonProperty("@context")
-    public void set_context(List<String> _context) {
+    public void set_context(List<Object> _context) {
         this._context = _context;
     }
 
@@ -118,14 +126,14 @@ public class ToolConsumer {
         this.product_instance = product_instance;
     }
 
-    @JsonProperty("capability_enabled")
-    public List<String> getCapability_enabled() {
-        return capability_enabled;
+    @JsonProperty("capability_offered")
+    public List<String> getCapability_offered() {
+        return capability_offered;
     }
 
-    @JsonProperty("capability_enabled")
-    public void setCapability_enabled(List<String> capability_enabled) {
-        this.capability_enabled = capability_enabled;
+    @JsonProperty("capability_offered")
+    public void setCapability_offered(List<String> capability_offered) {
+        this.capability_offered = capability_offered;
     }
 
     @JsonProperty("service_offered")
@@ -146,6 +154,11 @@ public class ToolConsumer {
     @JsonAnySetter
     public void setAdditionalProperties(String name, Object value) {
         this.additionalProperties.put(name, value);
+    }
+
+    // Convienence method
+    public void addCapabilites(String [] capabilities) {
+        Collections.addAll(this.capability_offered, capabilities);
     }
 
 }
