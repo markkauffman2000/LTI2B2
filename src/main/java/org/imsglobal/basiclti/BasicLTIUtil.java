@@ -1,6 +1,6 @@
 /*
  * $URL: https://source.sakaiproject.org/svn/basiclti/trunk/basiclti-util/src/java/org/imsglobal/basiclti/BasicLTIUtil.java $
- * $Id: BasicLTIUtil.java 131915 2013-11-23 15:56:09Z csev@umich.edu $
+ * $Id: BasicLTIUtil.java 131976 2013-11-26 19:04:20Z csev@umich.edu $
  *
  * Copyright (c) 2008 IMS GLobal Learning Consortium
  *
@@ -21,40 +21,34 @@ package org.imsglobal.basiclti;
 
 import static org.imsglobal.basiclti.BasicLTIConstants.CUSTOM_PREFIX;
 import static org.imsglobal.basiclti.BasicLTIConstants.EXTENSION_PREFIX;
-import static org.imsglobal.basiclti.BasicLTIConstants.OAUTH_PREFIX;
 import static org.imsglobal.basiclti.BasicLTIConstants.LTI_MESSAGE_TYPE;
 import static org.imsglobal.basiclti.BasicLTIConstants.LTI_VERSION;
+import static org.imsglobal.basiclti.BasicLTIConstants.OAUTH_PREFIX;
 import static org.imsglobal.basiclti.BasicLTIConstants.TOOL_CONSUMER_INSTANCE_CONTACT_EMAIL;
 import static org.imsglobal.basiclti.BasicLTIConstants.TOOL_CONSUMER_INSTANCE_DESCRIPTION;
 import static org.imsglobal.basiclti.BasicLTIConstants.TOOL_CONSUMER_INSTANCE_GUID;
 import static org.imsglobal.basiclti.BasicLTIConstants.TOOL_CONSUMER_INSTANCE_NAME;
 import static org.imsglobal.basiclti.BasicLTIConstants.TOOL_CONSUMER_INSTANCE_URL;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.TreeMap;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServletRequest;
+
 import net.oauth.OAuthAccessor;
 import net.oauth.OAuthConsumer;
 import net.oauth.OAuthMessage;
 import net.oauth.OAuthValidator;
 import net.oauth.SimpleOAuthValidator;
+import net.oauth.server.OAuthServlet;
 import net.oauth.signature.OAuthSignatureMethod;
-
-import org.json.simple.JSONValue;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONArray;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Iterator;
-import java.util.Enumeration;
-import java.util.TreeMap;
-import java.util.Map.Entry;
-import java.util.logging.Logger;
-import java.util.regex.Pattern;
-import java.util.regex.Matcher;
-import java.net.URL;
-
-import javax.servlet.http.HttpServletRequest;
 
 /* Leave out until we have JTidy 0.8 in the repository 
  import org.w3c.tidy.Tidy;
@@ -116,6 +110,45 @@ public class BasicLTIUtil {
 		if (verbosePrint)
 			System.out.println(str);
 		M_log.fine(str);
+	}
+
+	// expected_oauth_key can be null - if it is non-null it must match the key in the request
+	public static Object validateMessage(HttpServletRequest request, String URL, 
+		String oauth_secret, String expected_oauth_key)
+	{
+		OAuthMessage oam = OAuthServlet.getMessage(request, URL);
+		String oauth_consumer_key = null;
+		try {
+			oauth_consumer_key = oam.getConsumerKey();
+		} catch (Exception e) {
+            return "Unable to find consumer key";
+		}
+
+		if ( expected_oauth_key != null && ! expected_oauth_key.equals(oauth_consumer_key) ) {
+            return "Incorrect consumer key";
+		}
+
+		OAuthValidator oav = new SimpleOAuthValidator();
+		OAuthConsumer cons = new OAuthConsumer("about:blank#OAuth+CallBack+NotUsed", oauth_consumer_key,oauth_secret, null);
+
+		OAuthAccessor acc = new OAuthAccessor(cons);
+
+		String base_string = null;
+		try {
+			base_string = OAuthSignatureMethod.getBaseString(oam);
+		} catch (Exception e) {
+            return "Unable to find base string";
+		}
+
+		try {
+			oav.validateMessage(oam, acc);
+		} catch (Exception e) {
+			if (base_string != null) {
+				return "Failed to validate: "+e.getLocalizedMessage()+"\nBase String\n"+base_string;
+			}
+			return "Failed to validate: "+e.getLocalizedMessage();
+		}
+		return Boolean.TRUE;
 	}
 
 	public static String validateDescriptor(String descriptor) {
@@ -825,8 +858,7 @@ public class BasicLTIUtil {
         return retval;
     }
 
-	@SuppressWarnings("unchecked")
-    static public String getRealPath(HttpServletRequest request, String extUrl)
+	static public String getRealPath(HttpServletRequest request, String extUrl)
     {
         String URLstr = request.getRequestURL().toString();
         String retval = getRealPath(URLstr, extUrl);
@@ -840,7 +872,7 @@ public class BasicLTIUtil {
 	 * @param properties
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 		public static Map<String, String> convertToMap(final Properties properties) {
 			final Map<String, String> map = new HashMap(properties);
 			return map;
