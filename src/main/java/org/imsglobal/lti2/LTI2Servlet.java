@@ -65,6 +65,10 @@ import org.json.simple.JSONValue;
  *
  *  The navigate to:
  *  http://localhost/testservlet/sample/register
+ *  
+ *  or for Blackboard Learn:
+ *  
+ *  http://localhost/webapps/bbdn-bbdn-lti2-prototype-BBLEARN/testservlet/sample/register
  * 
  *  A PHP endpoint is available at:
  * 
@@ -142,31 +146,31 @@ public class LTI2Servlet extends HttpServlet {
 		String rpi = request.getPathInfo();
 		String uri = request.getRequestURI();
 		String [] parts = uri.split("/");
-		if ( parts.length < 4 ) {
+		if ( parts.length < 5 ) {
 			response.setStatus(HttpServletResponse.SC_BAD_REQUEST); 
 			doErrorJSON(request, response, null, "Incorrect url format", null);
 			return;
 		}
-		String controller = parts[3];
+		String controller = parts[4];
 		if ( "register".equals(controller) ) {
 			doRegister(request,response);
 			return;
 		} else if ( "launch".equals(controller) ) {
 			doLaunch(request,response);
 			return;
-		} else if ( SVC_tc_profile.equals(controller) && parts.length == 5 ) {
-			String profile_id = parts[4];
+		} else if ( SVC_tc_profile.equals(controller) && parts.length == 6 ) {
+			String profile_id = parts[5];
 			getToolConsumerProfile(request,response,profile_id);
 			return;
-		} else if ( SVC_tc_registration.equals(controller) && parts.length == 5 ) {
-			String profile_id = parts[4];
+		} else if ( SVC_tc_registration.equals(controller) && parts.length == 6 ) {
+			String profile_id = parts[5];
 			registerToolProviderProfile(request, response, profile_id);
 			return;
-		} else if ( SVC_Result.equals(controller) && parts.length == 5 ) {
-			String sourcedid = parts[4];
+		} else if ( SVC_Result.equals(controller) && parts.length == 6 ) {
+			String sourcedid = parts[5];
 			handleResultRequest(request, response, sourcedid);
 			return;
-		} else if ( SVC_Settings.equals(controller) && parts.length >= 6 ) {
+		} else if ( SVC_Settings.equals(controller) && parts.length >= 7 ) {
 			handleSettingsRequest(request, response, parts);
 			return;
 		}
