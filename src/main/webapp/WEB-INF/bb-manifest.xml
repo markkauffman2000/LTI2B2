@@ -37,7 +37,7 @@
         <description lang="en_US"></description>
         <links>
           <link>
-            <type value="course_tool"/>
+            <type value="system_tool"/>
             <name value="tool1.name"/>
             <url value="index.jsp" />
             <description value="tool1.description" />
@@ -107,10 +107,12 @@
 
     <!-- Add custom schema elements to Learn.
          http://help.blackboard.com/b2/schema.html
-    <schema-dirs>
-      <schema-dir dir-name="main" />
-    </schema-dirs>
     -->
+    <!-- 
+    <schema-dirs>
+      <schema-dir dir-name="lti2" />
+    </schema-dirs>
+	 -->
 
     <!-- Create custom entitlements that are automatically applied to any
          role that already has the "template" entitlement.

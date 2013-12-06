@@ -11,7 +11,7 @@ project.ext {
   learnVersion = "9.1.110082.0"
   springVersion = "3.1.1.RELEASE"
   hibernateVersion = "4.1.10.Final"
-  deployServer = "localhost:9876"
+  deployServer = "ec2-54-204-133-36.compute-1.amazonaws.com"
   deployInstance = "BBLEARN"
 }
 

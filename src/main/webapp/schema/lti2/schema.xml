@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="utf-8"?>
+<schema xmlns="http://www.blackboard.com/bb-schema"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.blackboard.com/bb-schema http://fibbba.medu.com/xsd/bb-schema.xsd"
+        name="LTI2-B2" license="Course Delivery">
+  <comment>This schema contains tables related to the B2 template.</comment>
+
+  <!-- Remember, all custom schema elements must start with your vendor ID. -->
+  <table name="bbdn_lti2_global_settings">
+  	<comment>This table stores the global settings for the LTI 2.0 Building Block</comment>
+    
+    <column name="bbdn_global_settings_id" data-type="int" nullable="false" identity="true" comment="This is the surrogate primary key for the table." />
+    
+    <column name="bbdn_settings_courses_enabled_ind" data-type="char" nullable="false" comment="Are tools enabled for courses" >
+    	<value-constraint name="bbdn_settings_courses_enabled_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+    </column>
+    
+    <column name="bbdn_settings_orgs_enabled_ind" data-type="char" nullable="false" comment="Are tools enabled for organizations" >
+    	<value-constraint name="bbdn_settings_orgs_enabled_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+    </column>
+    
+    <column name="bbdn_settings_links_allowed" data-type="int" nullable="false" comment="Tool Provider link creation permissions: 0=allow any link not excluded, 1=allow any link, but require approval, 2=only allow approved links" >
+    	<value-constraint name="bbdn_settings_links_allowed_ind1">
+		    <accepted-value value="0"/>
+		    <accepted-value value="1"/>
+		    <accepted-value value="2"/>
+		</value-constraint>
+    </column>
+    
+    <column name="bbdn_settings_grades_enabled_ind" data-type="char" nullable="false" comment="Enable Grades. If no, grades will not be available for any tool provider. If yes, grades can be enabled on a per tool basis" >
+    	<value-constraint name="bbdn_settings_grades_enabled_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+    </column>
+    
+    <column name="bbdn_settings_send_userdata" data-type="int" nullable="false" comment="Default Value for User Data send permissions: 0=never, 1=SSL only, 2=any connection" >
+    	<value-constraint name="bbdn_settings_send_userdata_ind1">
+		    <accepted-value value="0"/>
+		    <accepted-value value="1"/>
+		    <accepted-value value="2"/>
+		</value-constraint>
+    </column>
+
+    <column name="bbdn_settings_send_role_ind" data-type="char" nullable="false" comment="Default value for Send Role" >
+    	<value-constraint name="bbdn_settings_send_role_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+    </column>
+    
+    <column name="bbdn_settings_send_username_ind" data-type="char" nullable="false" comment="Default value for Send User name" >
+    	<value-constraint name="bbdn_settings_send_username_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+    </column>
+    
+    <column name="bbdn_settings_send_email_ind" data-type="char" nullable="false" comment="Default value for send email address" >
+    	<value-constraint name="bbdn_settings_send_email_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+    </column>
+    
+    <column name="bbdn_settings_allow_grades_ind" data-type="char" nullable="false" comment="Default value to allow grades" >
+    	<value-constraint name="bbdn_settings_allow_grades_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+    </column>
+    
+    <column name="bbdn_settings_provide_roster_ind" data-type="char" nullable="false" comment="default value to provide roster" >
+    	<value-constraint name="bbdn_settings_provide_roster_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+    </column>
+    
+    <column name="bbdn_settings_external_settings_ind" data-type="char" nullable="false" comment="default value for allowing tools to set settings" >
+    	<value-constraint name="bbdn_settings_external_settings_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+    </column>
+    
+    <column name="bbdn_settings_access_lessons_ind" data-type="char" nullable="false" comment="default value for whether to allow access to the lessons API" >
+    	<value-constraint name="bbdn_settings_access_lessons_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+    </column>
+    
+    <column name="bbdn_settings_user_ack_ind" data-type="char" nullable="false" comment="notify user that they are leaving Blackboard?" >
+    	<value-constraint name="bbdn_settings_user_ack_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+    </column>
+    
+    <column name="bbdn_settings_user_ack_msg" data-type="nvarchar(256)" nullable="true" comment="message to notify user that they are leaving Blackboard"/>
+    
+    <primary-key name="bbdn_global_settings_pk" comment="This is the name of primary key constraint on column settings_id.">
+      <columnref name="bbdn_global_settings_id" />
+    </primary-key>
+  
+  </table>
+  
+  <table name="bbdn_lti2_tools">
+  	<comment>This table contains the settings for each individual tool provider domain</comment>
+  	
+    <column name="bbdn_tool_id" data-type="int" nullable="false" identity="true" comment="This is the surrogate primary key for the table." />
+    
+    <column name="bbdn_tool_domain" data-type="nvarchar(256)" nullable="false" comment="Base domain for tool provider" />
+    
+    <column name="bbdn_tool_approved_ind" data-type="char" nullable="false" comment="If Y, the tool is approved, if N, the tool is excluded" >
+    	<value-constraint name="bbdn_tool_approved_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+	</column>
+		
+    <column name="bbdn_tool_secondary_hostnames" data-type="nvarchar(256)" nullable="false" comment="List of secondary hostnames, delimited by |" />
+    
+    <column name="bbdn_tool_global_ind" data-type="char" nullable="false" comment="If Y, settings for tool affect all links. If N, each link is responsible for its own configuration" >
+    	<value-constraint name="bbdn_tool_global_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+	</column>
+		
+    <column name="bbdn_tool_key" data-type="nvarchar(256)" nullable="false" comment="The tool provider key. This is provided by the Tool Provider in LTI 2.0" />
+    
+    <column name="bbdn_tool_secret" data-type="nvarchar(256)" nullable="false" comment="The tool provider shared secret. This is provided by the Tool Provider in LTI 2.0" />
+    
+    <column name="bbdn_tool_custom_params" data-type="nvarchar(256)" nullable="false" comment="Name-Value pairs delimited by | to be sent by Blackboard to the Tool Provider" />
+    
+    <column name="bbdn_tool_send_userdata" data-type="int" nullable="false" comment="Default Value for User Data send permissions: 0=never, 1=SSL only, 2=any connection" >
+    	<value-constraint name="bbdn_tool_send_userdata_ind1">
+		    <accepted-value value="0"/>
+		    <accepted-value value="1"/>
+		    <accepted-value value="2"/>
+		</value-constraint>
+    </column>
+
+    <column name="bbdn_tool_send_role_ind" data-type="char" nullable="false" comment="Default value for Send Role" >
+    	<value-constraint name="bbdn_tool_send_role_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+    </column>
+    
+    <column name="bbdn_tool_send_username_ind" data-type="char" nullable="false" comment="Default value for Send User name" >
+    	<value-constraint name="bbdn_tool_send_username_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+    </column>
+    
+    <column name="bbdn_tool_send_email_ind" data-type="char" nullable="false" comment="Default value for send email address" >
+    	<value-constraint name="bbdn_tool_send_email_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+    </column>
+    
+    <column name="bbdn_tool_allow_grades_ind" data-type="char" nullable="false" comment="Default value to allow grades" >
+    	<value-constraint name="bbdn_tool_allow_grades_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+    </column>
+    
+    <column name="bbdn_tool_provide_roster_ind" data-type="char" nullable="false" comment="default value to provide roster" >
+    	<value-constraint name="bbdn_tool_provide_roster_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+    </column>
+    
+    <column name="bbdn_tool_external_settings_ind" data-type="char" nullable="false" comment="default value for allowing tools to set settings" >
+    	<value-constraint name="bbdn_tool_external_settings_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+    </column>
+    
+    <column name="bbdn_tool_access_lessons_ind" data-type="char" nullable="false" comment="default value for whether to allow access to the lessons API" >
+    	<value-constraint name="bbdn_tool_access_lessons_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+    </column>
+    
+    <column name="bbdn_tool_user_ack_ind" data-type="char" nullable="false" comment="notify user that they are leaving Blackboard?" >
+    	<value-constraint name="bbdn_tool_user_ack_ind1">
+		    <accepted-value value="Y"/>
+		    <accepted-value value="N"/>
+		</value-constraint>
+    </column>
+    
+    <column name="bbdn_tool_user_ack_msg" data-type="nvarchar(256)" nullable="true" comment="message to notify user that they are leaving Blackboard"/>
+    
+    <primary-key name="bbdn_tool_pk" comment="This is the name of primary key constraint on column tool_id.">
+      <columnref name="bbdn_tool_id" />
+    </primary-key>
+  
+  </table>
+  
+  <table name="bbdn_lti2_links">
+  	<comment>This table contains all of the LTI2 links</comment>
+  	
+    <column name="bbdn_link_id" data-type="int" nullable="false" identity="true" comment="This is the surrogate primary key for the table." />
+    
+    <column name="bbdn_link_title" data-type="nvarchar(256)" nullable="false" comment="Link Title" />
+    
+    <column name="bbdn_link_url" data-type="nvarchar(256)" nullable="false" comment="LTI Launch URL" />
+    
+    <column name="bbdn_link_key" data-type="nvarchar(256)" nullable="true" comment="Key, if set at the link level" />
+    
+    <column name="bbdn_link_secret" data-type="nvarchar(256)" nullable="true" comment="Secret, if set at the link level" />
+    
+    <column name="bbdn_link_custom_params" data-type="nvarchar(256)" nullable="false" comment="Name-Value pairs delimited by | to be sent by Blackboard to the Tool Provider" />
+    
+    <primary-key name="bbdn_link_pk" comment="This is the name of primary key constraint on column bbdn_link_id">
+      <columnref name="tool_id" />
+    </primary-key>
+  
+  </table>
+  
+</schema>
