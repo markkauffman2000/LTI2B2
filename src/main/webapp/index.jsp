@@ -25,7 +25,7 @@
         	</bbNG:actionControlBar>
         </bbNG:pageHeader>
 
-        <bbNG:inventoryList className="bbdn.lti2.ToolProvider"
+        <bbNG:inventoryList className="bbdn.lti2.dao.Lti2ProviderDomain "
                         collection="${providers}" objectVar="provider"
                         description="LTI 2.0 Tool Providers" initialSortCol="domain"
                         url="/webapps/blackboard/execute/blti/manageToolProviders">
@@ -38,7 +38,7 @@
         <bbNG:listActionItem url="javascript:manage_tool_providers.onDelete();" title="${deleteStr}" contextMenuItemId="deleteItem"/>
       </bbNG:listActionBar>
       
-      <bbNG:listCheckboxElement name="configIds" value="${provider.id.externalString}"/>
+      <bbNG:listCheckboxElement name="configIds" value="provider.getBbdn_tool_id() "/>
       
       <bbNG:listElement name="domain" label="Domain" isRowHeader="true">
        	<bbNG:beanComparator property="primaryDomainName"/>

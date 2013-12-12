@@ -108,11 +108,10 @@
     <!-- Add custom schema elements to Learn.
          http://help.blackboard.com/b2/schema.html
     -->
-    <!-- 
     <schema-dirs>
       <schema-dir dir-name="lti2" />
     </schema-dirs>
-	 -->
+
 
     <!-- Create custom entitlements that are automatically applied to any
          role that already has the "template" entitlement.

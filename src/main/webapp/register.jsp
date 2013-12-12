@@ -61,14 +61,6 @@
         				<bbNG:radioElement name="defaultConfig" id="defaultConfigGlobally" optionLabel="Set globally." value="false" isSelected="false" />
         			</bbNG:dataElement>
         			
-        			<bbNG:dataElement label="Tool Provider Key" labelFor="key" isRequired="true">
-          				<bbNG:textElement name="key" id="key" title="Tool Provider Key" maxLength="255" value="key" isDisabled="true"/>
-        			</bbNG:dataElement>
-        		
-        			<bbNG:dataElement label="Tool Provider Secret" labelFor="secret" isRequired="true">
-          				<bbNG:textElement name="secret" id="secret" title="Tool Provider Secret" maxLength="255" value="secret" isDisabled="true"/>
-        			</bbNG:dataElement>
-        			
         			<bbNG:dataElement label="Tool Provider Custom Parameters" labelFor="customParameters">
           				<textarea name="customParameters" id="customParameters" rows="6" cols="55" disabled>Your custom parameters here.</textarea>
           				<bbNG:elementInstructions text="Enter any custom parameters required by the tool provider. Parameters must each be on their own line and be entered in \"name=value\" format."/>
@@ -76,26 +68,21 @@
         			
         		</bbNG:step>
         		
-        		<bbNG:step title="LTI 2.0 Service Contract" instructions="LTI 2.0 allows the Tool Provider and Tool Consumer to negotiate the contract of allowable services. This section allows the admin to specifiy the allowed services for this tool provider.">
-        			
-        			<bbNG:dataElement label="Allow tool provider to post grades" renderLegendAndFieldset="true">
+        		<bbNG:step title="LTI 2.0 Tool Service Contract" instructions="LTI 2.0 allows the Tool Provider and Tool Consumer to negotiate the contract of allowable services. This section allows the admin to specifiy the allowed services for this tool provider.">
+  
+        			<bbNG:dataElement label="Allow configured tool providers to post grades" renderLegendAndFieldset="true">
         				<bbNG:radioElement name="postGrades" id="postGradesYes" optionLabel="Yes" value="true" isSelected="true" />
         				<bbNG:radioElement name="postGrades" id="postGradesNo" optionLabel="No" value="false" isSelected="false" />
         			</bbNG:dataElement>
         			
-        			<bbNG:dataElement label="Provide the roster to external tool" renderLegendAndFieldset="true">
-        				<bbNG:radioElement name="provideRoster" id="provideRosterYes" optionLabel="Yes" value="true" isSelected="true" />
-        				<bbNG:radioElement name="provideRoster" id="provideRosterNo" optionLabel="No" value="false" isSelected="false" />
+        			<bbNG:dataElement label="Allow configured tool providers to request grades" renderLegendAndFieldset="true">
+        				<bbNG:radioElement name="getGrades" id="getGradesYes" optionLabel="Yes" value="true" isSelected="true" />
+        				<bbNG:radioElement name="getGrades" id="getGradesNo" optionLabel="No" value="false" isSelected="false" />
         			</bbNG:dataElement>
-        			
+        			    			
         			<bbNG:dataElement label="Allow Tool Provider to store settings data" renderLegendAndFieldset="true">
-        				<bbNG:radioElement name="storeSettings" id="storeSettingsYes" optionLabel="Yes" value="true" isSelected="true" />
-        				<bbNG:radioElement name="storeSettings" id="storeSettingsNo" optionLabel="No" value="false" isSelected="false" />
-        			</bbNG:dataElement>
-        			
-        			<bbNG:dataElement label="Allow Tool Provider to access Lessons API" renderLegendAndFieldset="true">
-        				<bbNG:radioElement name="lessonsApi" id="lessonsApiYes" optionLabel="Yes" value="true" isSelected="true" />
-        				<bbNG:radioElement name="lessonsApi" id="lessonsApiNo" optionLabel="No" value="false" isSelected="false" />
+        				<bbNG:radioElement name="putToolSettingsContainer" id="putToolSettingsContainerYes" optionLabel="Yes" value="true" isSelected="true" />
+        				<bbNG:radioElement name="putToolSettingsContainer" id="putToolSettingsContainerNo" optionLabel="No" value="false" isSelected="false" />
         			</bbNG:dataElement>
         			
         		</bbNG:step>

@@ -72,5 +72,5 @@ public class BBDNConstants {
 	 * Send User Data over any connection
 	 */
 	public static final String BBDN_USER_DATA_ANY = "2";
-	
+
 }
