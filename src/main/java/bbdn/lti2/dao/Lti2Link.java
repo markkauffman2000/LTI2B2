@@ -16,140 +16,140 @@ public class Lti2Link  extends AbstractIdentifiable {
 		   }
 
 		   @PrimaryKey
-		   private int bbdn_link_id;
+		   private int link_id;
 		  
-		   @Column(value = "bbdn_link_title")
-		   private String bbdn_link_title;
+		   @Column(value = "link_title")
+		   private String link_title;
 		   
-		   @Column(value = "bbdn_link_url")
-		   private String bbdn_link_url;
+		   @Column(value = "link_url")
+		   private String link_url;
 		 
-		   @Column(value = "bbdn_link_key")
-		   private String bbdn_link_key;
+		   @Column(value = "link_key")
+		   private String link_key;
 		 
-		   @Column(value = "bbdn_link_secret")
-		   private String bbdn_link_secret;
+		   @Column(value = "link_secret")
+		   private String link_secret;
 		 
-		   @Column(value = "bbdn_link_custom_params")
-		   private String bbdn_link_custom_params;
+		   @Column(value = "link_customparams")
+		   private String link_customparams;
 		   
-		   @Column(value = "bbdn_link_tool_id")
-		   private int bbdn_link_tool_id;
+		   @Column(value = "link_tool_id")
+		   private int link_tool_id;
 		   
-		   @Column(value = "bbdn_link_content_id")
-		   private int bbdn_link_content_id;
+		   @Column(value = "link_content_id")
+		   private int link_content_id;
 
 		/**
-		 * @return the bbdn_link_id
+		 * @return the link_id
 		 */
-		public int getBbdn_link_id() {
-			return bbdn_link_id;
+		public int getLink_id() {
+			return link_id;
 		}
 
 		/**
-		 * @param bbdn_link_id the bbdn_link_id to set
+		 * @param link_id the link_id to set
 		 */
-		public void setBbdn_link_id(int bbdn_link_id) {
-			this.bbdn_link_id = bbdn_link_id;
+		public void setLink_id(int link_id) {
+			this.link_id = link_id;
 		}
 
 		/**
-		 * @return the bbdn_link_title
+		 * @return the link_title
 		 */
-		public String getBbdn_link_title() {
-			return bbdn_link_title;
+		public String getLink_title() {
+			return link_title;
 		}
 
 		/**
-		 * @param bbdn_link_title the bbdn_link_title to set
+		 * @param link_title the link_title to set
 		 */
-		public void setBbdn_link_title(String bbdn_link_title) {
-			this.bbdn_link_title = bbdn_link_title;
+		public void setLink_title(String link_title) {
+			this.link_title = link_title;
 		}
 
 		/**
-		 * @return the bbdn_link_url
+		 * @return the link_url
 		 */
-		public String getBbdn_link_url() {
-			return bbdn_link_url;
+		public String getLink_url() {
+			return link_url;
 		}
 
 		/**
-		 * @param bbdn_link_url the bbdn_link_url to set
+		 * @param link_url the link_url to set
 		 */
-		public void setBbdn_link_url(String bbdn_link_url) {
-			this.bbdn_link_url = bbdn_link_url;
+		public void setLink_url(String link_url) {
+			this.link_url = link_url;
 		}
 
 		/**
-		 * @return the bbdn_link_key
+		 * @return the link_key
 		 */
-		public String getBbdn_link_key() {
-			return bbdn_link_key;
+		public String getLink_key() {
+			return link_key;
 		}
 
 		/**
-		 * @param bbdn_link_key the bbdn_link_key to set
+		 * @param link_key the link_key to set
 		 */
-		public void setBbdn_link_key(String bbdn_link_key) {
-			this.bbdn_link_key = bbdn_link_key;
+		public void setLink_key(String link_key) {
+			this.link_key = link_key;
 		}
 
 		/**
-		 * @return the bbdn_link_secret
+		 * @return the link_secret
 		 */
-		public String getBbdn_link_secret() {
-			return bbdn_link_secret;
+		public String getLink_secret() {
+			return link_secret;
 		}
 
 		/**
-		 * @param bbdn_link_secret the bbdn_link_secret to set
+		 * @param link_secret the link_secret to set
 		 */
-		public void setBbdn_link_secret(String bbdn_link_secret) {
-			this.bbdn_link_secret = bbdn_link_secret;
+		public void setLink_secret(String link_secret) {
+			this.link_secret = link_secret;
 		}
 
 		/**
-		 * @return the bbdn_link_custom_params
+		 * @return the link_customparams
 		 */
-		public String getBbdn_link_custom_params() {
-			return bbdn_link_custom_params;
+		public String getLink_customparams() {
+			return link_customparams;
 		}
 
 		/**
-		 * @param bbdn_link_custom_params the bbdn_link_custom_params to set
+		 * @param link_customparams the link_customparams to set
 		 */
-		public void setBbdn_link_custom_params(String bbdn_link_custom_params) {
-			this.bbdn_link_custom_params = bbdn_link_custom_params;
+		public void setLink_customparams(String link_customparams) {
+			this.link_customparams = link_customparams;
 		}
 
 		/**
-		 * @return the bbdn_link_tool_id
+		 * @return the link_tool_id
 		 */
-		public int getBbdn_link_tool_id() {
-			return bbdn_link_tool_id;
+		public int getLink_tool_id() {
+			return link_tool_id;
 		}
 
 		/**
-		 * @param bbdn_link_tool_id the bbdn_link_tool_id to set
+		 * @param link_tool_id the link_tool_id to set
 		 */
-		public void setBbdn_link_tool_id(int bbdn_link_tool_id) {
-			this.bbdn_link_tool_id = bbdn_link_tool_id;
+		public void setLink_tool_id(int link_tool_id) {
+			this.link_tool_id = link_tool_id;
 		}
 
 		/**
-		 * @return the bbdn_link_content_id
+		 * @return the link_content_id
 		 */
-		public int getBbdn_link_content_id() {
-			return bbdn_link_content_id;
+		public int getLink_content_id() {
+			return link_content_id;
 		}
 
 		/**
-		 * @param bbdn_link_content_id the bbdn_link_content_id to set
+		 * @param link_content_id the link_content_id to set
 		 */
-		public void setBbdn_link_content_id(int bbdn_link_content_id) {
-			this.bbdn_link_content_id = bbdn_link_content_id;
+		public void setLink_content_id(int link_content_id) {
+			this.link_content_id = link_content_id;
 		}
+
 		
-		   
 }

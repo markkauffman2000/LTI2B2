@@ -5,10 +5,7 @@
 <%@ page import="java.util.HashMap,
 				 blackboard.servlet.tags.ngui.datacollection.DataElementTag,
 				 blackboard.base.FormattedText,
-				 bbdn.lti2.BBDNConstants,
-				 bbdn.lti2.dao.Lti2GlobalSettings,
-				 bbdn.lti2.dao.Lti2GlobalSettingsDAO,
-				 bbdn.lti2.util.SettingsUtil" %>
+				 bbdn.lti2.BBDNConstants,bbdn.lti2.dao.Lti2Properties,bbdn.lti2.dao.Lti2PropertiesDAO,bbdn.lti2.util.SettingsUtil" %>
 
 <%@ taglib uri="/bbNG" prefix="bbNG"%>
 
@@ -16,8 +13,8 @@
 	FormattedText defaultText = new FormattedText("Place your message text here.", FormattedText.Type.PLAIN_TEXT );
 	String navItem = request.getParameter("navItem");
 	
-	Lti2GlobalSettingsDAO gsDAO = new Lti2GlobalSettingsDAO();
-	Lti2GlobalSettings globalSettings = gsDAO.load();
+	Lti2PropertiesDAO gsDAO = new Lti2PropertiesDAO();
+	Lti2Properties globalSettings = gsDAO.load();
 	
 	HashMap<String,String> gsMap = SettingsUtil.convertGlobalSettings(globalSettings);
 %>

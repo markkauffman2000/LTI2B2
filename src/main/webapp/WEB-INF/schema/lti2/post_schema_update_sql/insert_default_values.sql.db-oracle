@@ -1,28 +1,26 @@
 -- Populates the prefs table with default values if it has not been previously populated.
 --
 BEGIN
-    INSERT INTO bbdn_lti2_global_settings (
-		bbdn_global_settings_id, 
-        bbdn_settings_courses_enabled_ind, 
-        bbdn_settings_orgs_enabled_ind, 
-        bbdn_settings_links_allowed, 
-        bbdn_settings_grades_enabled_post_ind,
-        bbdn_settings_grades_enabled_get_ind, 
-        bbdn_settings_post_proxy_tools_ind, 
-        bbdn_settings_put_tool_settings_ind, 
-        bbdn_settings_send_userdata, 
-        bbdn_settings_send_role_ind, 
-        bbdn_settings_send_username_ind, 
-        bbdn_settings_send_email_ind, 
-        bbdn_settings_user_ack_ind, 
-        bbdn_settings_user_ack_msg
+    INSERT INTO bbdn_lti2_properties (
+    	props_pk,
+		props_courses_ind, 
+        props_orgs_ind, 
+        props_links, 
+        props_postgrades_ind,
+        props_getgrades_ind,
+        props_toolsettings_ind, 
+        props_senddata, 
+        props_sendrole_ind, 
+        props_sendname_ind, 
+        props_sendemail_ind, 
+        props_userack_ind, 
+        props_ackmsg
         )
     select  
-		bbdn_lti2_global_settings_SEQ.NEXTVAL,
+		bbdn_lti2_properties_SEQ.NEXTVAL,
         'N',
         'N',
         '0',
-        'N',
         'N',
         'N',
         'N',
@@ -33,7 +31,7 @@ BEGIN
         'N', 
         'Place you message text here.'
     FROM DUAL 
-    WHERE NOT EXISTS (SELECT modified FROM bbdn_lti2_global_settings);
+    WHERE NOT EXISTS (SELECT modified FROM bbdn_lti2_properties);
     COMMIT;
 END;
 

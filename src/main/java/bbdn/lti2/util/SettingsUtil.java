@@ -2,7 +2,7 @@ package bbdn.lti2.util;
 
 import java.util.HashMap;
 
-import bbdn.lti2.dao.Lti2GlobalSettings;
+import bbdn.lti2.dao.Lti2Properties;
 
 /**
  * 
@@ -24,15 +24,15 @@ public abstract class SettingsUtil {
 			return "false";	
 	}
 	
-	public static HashMap<String,String> convertGlobalSettings(Lti2GlobalSettings globalSettings) {
+	public static HashMap<String,String> convertGlobalSettings(Lti2Properties globalSettings) {
 		HashMap<String,String> gsMap = new HashMap<String,String>();
 		
 		// Map Global Settings Id
-		gsMap.put("SettingsId",Integer.toString(globalSettings.getBbdn_global_settings_id()));
+		gsMap.put("SettingsId",Integer.toString(globalSettings.getProps_id()));
 		
 		// Map LTI 2.0 Enabled in Courses
 		String courseDisabled = "false";
-		String courseEnabled = indToBool(globalSettings.getBbdn_settings_courses_enabled_ind());
+		String courseEnabled = indToBool(globalSettings.getProps_courses_ind());
 		
 		if (courseEnabled.matches("false")) {
 			courseDisabled = "true";
@@ -43,7 +43,7 @@ public abstract class SettingsUtil {
 		
 		// Map LTI 2.0 Enabled in Courses
 		String orgDisabled = "false";
-		String orgEnabled = indToBool(globalSettings.getBbdn_settings_orgs_enabled_ind());
+		String orgEnabled = indToBool(globalSettings.getProps_orgs_ind());
 		
 		if (orgEnabled.matches("false")) {
 			orgDisabled = "true";
@@ -53,7 +53,7 @@ public abstract class SettingsUtil {
 		gsMap.put("OrgDisabled", orgDisabled);
 		
 		// Map Link Creation Settings
-		int linksAllowed = globalSettings.getBbdn_settings_links_allowed();
+		int linksAllowed = globalSettings.getProps_links();
 		
 		String linkCreationAllow = "false";
 		String linkCreationNeedApproval = "false";
@@ -71,7 +71,7 @@ public abstract class SettingsUtil {
 				
 		// Map LTI 2.0 Post Grades
 		String postGradesDisabled = "false";
-		String postGradesEnabled = indToBool(globalSettings.getBbdn_settings_grades_enabled_post_ind());
+		String postGradesEnabled = indToBool(globalSettings.getProps_postgrades_ind());
 				
 		if (postGradesEnabled.matches("false")) {
 			postGradesDisabled = "true";
@@ -82,7 +82,7 @@ public abstract class SettingsUtil {
 		
 		// Map LTI 2.0 Get Grades
 		String getGradesDisabled = "false";
-		String getGradesEnabled = indToBool(globalSettings.getBbdn_settings_grades_enabled_get_ind());
+		String getGradesEnabled = indToBool(globalSettings.getProps_getgrades_ind());
 				
 		if (getGradesEnabled.matches("false")) {
 			getGradesDisabled = "true";
@@ -93,7 +93,7 @@ public abstract class SettingsUtil {
 
 		// Map LTI 2.0 Post Tool Settings
 		String putToolSettingsDisabled = "false";
-		String putToolSettingsEnabled = indToBool(globalSettings.getBbdn_settings_put_tool_settings_ind());
+		String putToolSettingsEnabled = indToBool(globalSettings.getProps_toolsettings_ind());
 				
 		if (putToolSettingsEnabled.matches("false")) {
 			putToolSettingsDisabled = "true";
@@ -103,7 +103,7 @@ public abstract class SettingsUtil {
 		gsMap.put("PutToolSettingsDisabled", putToolSettingsDisabled);
 		
 		// Map User Data Connection Setting
-		int sendData = globalSettings.getBbdn_settings_send_userdata();
+		int sendData = globalSettings.getProps_senddata();
 		
 		String sendDataNever = "false";
 		String sendDataSSL = "false";
@@ -121,7 +121,7 @@ public abstract class SettingsUtil {
 				
 		// Map Send Role Setting
 		String sendRoleDisabled = "false";
-		String sendRoleEnabled = indToBool(globalSettings.getBbdn_settings_send_role_ind());
+		String sendRoleEnabled = indToBool(globalSettings.getProps_sendrole_ind());
 				
 		if (sendRoleEnabled.matches("false")) {
 			sendRoleDisabled = "true";
@@ -132,7 +132,7 @@ public abstract class SettingsUtil {
 		
 		// Map Send Name Setting
 		String sendNameDisabled = "false";
-		String sendNameEnabled = indToBool(globalSettings.getBbdn_settings_send_username_ind());
+		String sendNameEnabled = indToBool(globalSettings.getProps_sendname_ind());
 		
 		if (sendNameEnabled.matches("false")) {
 			sendNameDisabled = "true";
@@ -143,7 +143,7 @@ public abstract class SettingsUtil {
 
 		// Map Send Email Setting
 		String sendEmailDisabled = "false";
-		String sendEmailEnabled = indToBool(globalSettings.getBbdn_settings_send_email_ind());
+		String sendEmailEnabled = indToBool(globalSettings.getProps_sendemail_ind());
 		
 		if (sendEmailEnabled.matches("false")) {
 			sendEmailDisabled = "true";
@@ -154,7 +154,7 @@ public abstract class SettingsUtil {
 
 		// Map User Acknowledgment Setting
 		String userAckDisabled = "false";
-		String userAckEnabled = indToBool(globalSettings.getBbdn_settings_user_ack_ind());
+		String userAckEnabled = indToBool(globalSettings.getProps_userack_ind());
 		
 		if (userAckEnabled.matches("false")) {
 			userAckDisabled = "true";
@@ -164,7 +164,7 @@ public abstract class SettingsUtil {
 		gsMap.put("UserAckDisabled", userAckDisabled);
 
 		// Map User Acknowledgment Message
-		gsMap.put("UserAckMessage", globalSettings.getBbdn_settings_user_ack_msg());
+		gsMap.put("UserAckMessage", globalSettings.getProps_ackmsg());
 		
 		return(gsMap);
 	}

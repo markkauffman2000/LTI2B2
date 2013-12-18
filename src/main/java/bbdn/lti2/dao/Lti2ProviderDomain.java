@@ -1,6 +1,5 @@
 package bbdn.lti2.dao;
 
-import blackboard.base.FormattedText;
 import blackboard.data.AbstractIdentifiable;
 import blackboard.persist.DataType;
 import blackboard.persist.impl.mapping.annotation.Column;
@@ -17,332 +16,275 @@ public class Lti2ProviderDomain  extends AbstractIdentifiable {
 		   }
 
 		   @PrimaryKey
-		   private int bbdn_tool_id;
+		   private int tool_id;
 		  
-		   @Column(value = "bbdn_tool_domain")
-		   private String bbdn_tool_domain;
+		   @Column(value = "tool_domain")
+		   private String tool_domain;
 		   
-		   @Column(value = "bbdn_tool_approved_ind")
-		   private char bbdn_tool_approved_ind;
+		   @Column(value = "tool_status_ind")
+		   private char tool_status_ind;
 		 
-		   @Column(value = "bbdn_tool_secondary_hostnames")
-		   private String bbdn_tool_secondary_hostnames;
+		   @Column(value = "tool_sechostnames")
+		   private String tool_sechostnames;
 		 
-		   @Column(value = "bbdn_tool_key")
-		   private String bbdn_tool_key;
+		   @Column(value = "tool_key")
+		   private String tool_key;
 		 
-		   @Column(value = "bbdn_tool_secret")
-		   private String bbdn_tool_secret;
+		   @Column(value = "tool_secret")
+		   private String tool_secret;
 		   
-		   @Column(value = "bbdn_tool_custom_params")
-		   private String bbdn_tool_custom_params;
+		   @Column(value = "tool_customparams")
+		   private String tool_customparams;
 		   
-		   @Column(value = "bbdn_tool_grades_enabled_post_ind")
-		   private char bbdn_tool_grades_enabled_post_ind;
+		   @Column(value = "tool_postgrades_ind")
+		   private char tool_postgrades_ind;
 		   
-		   @Column(value = "bbdn_tool_grades_enabled_get_ind")
-		   private char bbdn_tool_grades_enabled_get_ind;
+		   @Column(value = "tool_getgrades_ind")
+		   private char tool_getgrades_ind;
 		   
-		   @Column(value = "bbdn_tool_put_tool_settings_ind")
-		   private char bbdn_tool_put_tool_settings_ind;
+		   @Column(value = "tool_toolsettings_ind")
+		   private char tool_toolsettings_ind;
 		   
-		   @Column(value = "bbdn_tool_send_userdata")
-		   private int bbdn_tool_send_userdata;
+		   @Column(value = "tool_senddata")
+		   private int tool_senddata;
 		   
-		   @Column(value = "bbdn_tool_send_role_ind")
-		   private char bbdn_tool_send_role_ind;
+		   @Column(value = "tool_sendrole_ind")
+		   private char tool_sendrole_ind;
 
-		   @Column(value = "bbdn_tool_send_username_ind")
-		   private char bbdn_tool_send_username_ind;
+		   @Column(value = "tool_sendname_ind")
+		   private char tool_sendname_ind;
 
-		   @Column(value = "bbdn_tool_send_email_ind")
-		   private char bbdn_tool_send_email_ind;
+		   @Column(value = "tool_sendemail_ind")
+		   private char tool_sendemail_ind;
 
-		   @Column(value = "bbdn_tool_provide_roster_ind")
-		   private char bbdn_tool_provide_roster_ind;
+		   @Column(value = "tool_userack_ind")
+		   private char tool_userack_ind;
 
-		   @Column(value = "bbdn_tool_external_settings_ind")
-		   private char bbdn_tool_external_settings_ind;
-
-		   @Column(value = "bbdn_tool_access_lessons_ind")
-		   private char bbdn_tool_access_lessons_ind;
-
-		   @Column(value = "bbdn_tool_user_ack_ind")
-		   private char bbdn_tool_user_ack_ind;
-
-		   @Column(value = "bbdn_tool_user_ack_msg")
-		   private FormattedText bbdn_tool_user_ack_msg;
+		   @Column(value = "tool_ackmsg")
+		   private String tool_ackmsg;
 
 		/**
-		 * @return the bbdn_tool_id
+		 * @return the tool_id
 		 */
-		public int getBbdn_tool_id() {
-			return bbdn_tool_id;
+		public int getTool_id() {
+			return tool_id;
 		}
 
 		/**
-		 * @param bbdn_tool_id the bbdn_tool_id to set
+		 * @param tool_id the tool_id to set
 		 */
-		public void setBbdn_tool_id(int bbdn_tool_id) {
-			this.bbdn_tool_id = bbdn_tool_id;
+		public void setTool_id(int tool_id) {
+			this.tool_id = tool_id;
 		}
 
 		/**
-		 * @return the bbdn_tool_domain
+		 * @return the tool_domain
 		 */
-		public String getBbdn_tool_domain() {
-			return bbdn_tool_domain;
+		public String getTool_domain() {
+			return tool_domain;
 		}
 
 		/**
-		 * @param bbdn_tool_domain the bbdn_tool_domain to set
+		 * @param tool_domain the tool_domain to set
 		 */
-		public void setBbdn_tool_domain(String bbdn_tool_domain) {
-			this.bbdn_tool_domain = bbdn_tool_domain;
+		public void setTool_domain(String tool_domain) {
+			this.tool_domain = tool_domain;
 		}
 
 		/**
-		 * @return the bbdn_tool_approved_ind
+		 * @return the tool_status_ind
 		 */
-		public char getBbdn_tool_approved_ind() {
-			return bbdn_tool_approved_ind;
+		public char getTool_status_ind() {
+			return tool_status_ind;
 		}
 
 		/**
-		 * @param bbdn_tool_approved_ind the bbdn_tool_approved_ind to set
+		 * @param tool_status_ind the tool_status_ind to set
 		 */
-		public void setBbdn_tool_approved_ind(char bbdn_tool_approved_ind) {
-			this.bbdn_tool_approved_ind = bbdn_tool_approved_ind;
+		public void setTool_status_ind(char tool_status_ind) {
+			this.tool_status_ind = tool_status_ind;
 		}
 
 		/**
-		 * @return the bbdn_tool_secondary_hostnames
+		 * @return the tool_sechostnames
 		 */
-		public String getBbdn_tool_secondary_hostnames() {
-			return bbdn_tool_secondary_hostnames;
+		public String getTool_sechostnames() {
+			return tool_sechostnames;
 		}
 
 		/**
-		 * @param bbdn_tool_secondary_hostnames the bbdn_tool_secondary_hostnames to set
+		 * @param tool_sechostnames the tool_sechostnames to set
 		 */
-		public void setBbdn_tool_secondary_hostnames(
-				String bbdn_tool_secondary_hostnames) {
-			this.bbdn_tool_secondary_hostnames = bbdn_tool_secondary_hostnames;
+		public void setTool_sechostnames(String tool_sechostnames) {
+			this.tool_sechostnames = tool_sechostnames;
 		}
 
 		/**
-		 * @return the bbdn_tool_key
+		 * @return the tool_key
 		 */
-		public String getBbdn_tool_key() {
-			return bbdn_tool_key;
+		public String getTool_key() {
+			return tool_key;
 		}
 
 		/**
-		 * @param bbdn_tool_key the bbdn_tool_key to set
+		 * @param tool_key the tool_key to set
 		 */
-		public void setBbdn_tool_key(String bbdn_tool_key) {
-			this.bbdn_tool_key = bbdn_tool_key;
+		public void setTool_key(String tool_key) {
+			this.tool_key = tool_key;
 		}
 
 		/**
-		 * @return the bbdn_tool_secret
+		 * @return the tool_secret
 		 */
-		public String getBbdn_tool_secret() {
-			return bbdn_tool_secret;
+		public String getTool_secret() {
+			return tool_secret;
 		}
 
 		/**
-		 * @param bbdn_tool_secret the bbdn_tool_secret to set
+		 * @param tool_secret the tool_secret to set
 		 */
-		public void setBbdn_tool_secret(String bbdn_tool_secret) {
-			this.bbdn_tool_secret = bbdn_tool_secret;
+		public void setTool_secret(String tool_secret) {
+			this.tool_secret = tool_secret;
 		}
 
 		/**
-		 * @return the bbdn_tool_custom_params
+		 * @return the tool_customparams
 		 */
-		public String getBbdn_tool_custom_params() {
-			return bbdn_tool_custom_params;
+		public String getTool_customparams() {
+			return tool_customparams;
 		}
 
 		/**
-		 * @param bbdn_tool_custom_params the bbdn_tool_custom_params to set
+		 * @param tool_customparams the tool_customparams to set
 		 */
-		public void setBbdn_tool_custom_params(String bbdn_tool_custom_params) {
-			this.bbdn_tool_custom_params = bbdn_tool_custom_params;
+		public void setTool_customparams(String tool_customparams) {
+			this.tool_customparams = tool_customparams;
 		}
 
 		/**
-		 * @return the bbdn_tool_grades_enabled_post_ind
+		 * @return the tool_postgrades_ind
 		 */
-		public char getBbdn_tool_grades_enabled_post_ind() {
-			return bbdn_tool_grades_enabled_post_ind;
+		public char getTool_postgrades_ind() {
+			return tool_postgrades_ind;
 		}
 
 		/**
-		 * @param bbdn_tool_grades_enabled_post_ind the bbdn_tool_grades_enabled_post_ind to set
+		 * @param tool_postgrades_ind the tool_postgrades_ind to set
 		 */
-		public void setBbdn_tool_grades_enabled_post_ind(
-				char bbdn_tool_grades_enabled_post_ind) {
-			this.bbdn_tool_grades_enabled_post_ind = bbdn_tool_grades_enabled_post_ind;
+		public void setTool_postgrades_ind(char tool_postgrades_ind) {
+			this.tool_postgrades_ind = tool_postgrades_ind;
 		}
 
 		/**
-		 * @return the bbdn_tool_grades_enabled_get_ind
+		 * @return the tool_getgrades_ind
 		 */
-		public char getBbdn_tool_grades_enabled_get_ind() {
-			return bbdn_tool_grades_enabled_get_ind;
+		public char getTool_getgrades_ind() {
+			return tool_getgrades_ind;
 		}
 
 		/**
-		 * @param bbdn_tool_grades_enabled_get_ind the bbdn_tool_grades_enabled_get_ind to set
+		 * @param tool_getgrades_ind the tool_getgrades_ind to set
 		 */
-		public void setBbdn_tool_grades_enabled_get_ind(
-				char bbdn_tool_grades_enabled_get_ind) {
-			this.bbdn_tool_grades_enabled_get_ind = bbdn_tool_grades_enabled_get_ind;
+		public void setTool_getgrades_ind(char tool_getgrades_ind) {
+			this.tool_getgrades_ind = tool_getgrades_ind;
 		}
 
 		/**
-		 * @return the bbdn_tool_put_tool_settings_ind
+		 * @return the tool_toolsettings_ind
 		 */
-		public char getBbdn_tool_put_tool_settings_ind() {
-			return bbdn_tool_put_tool_settings_ind;
+		public char getTool_toolsettings_ind() {
+			return tool_toolsettings_ind;
 		}
 
 		/**
-		 * @param bbdn_tool_put_tool_settings_ind the bbdn_tool_put_tool_settings_ind to set
+		 * @param tool_toolsettings_ind the tool_toolsettings_ind to set
 		 */
-		public void setBbdn_tool_put_tool_settings_ind(
-				char bbdn_tool_put_tool_settings_ind) {
-			this.bbdn_tool_put_tool_settings_ind = bbdn_tool_put_tool_settings_ind;
+		public void setTool_toolsettings_ind(char tool_toolsettings_ind) {
+			this.tool_toolsettings_ind = tool_toolsettings_ind;
 		}
 
 		/**
-		 * @return the bbdn_tool_send_userdata
+		 * @return the tool_senddata
 		 */
-		public int getBbdn_tool_send_userdata() {
-			return bbdn_tool_send_userdata;
+		public int getTool_senddata() {
+			return tool_senddata;
 		}
 
 		/**
-		 * @param bbdn_tool_send_userdata the bbdn_tool_send_userdata to set
+		 * @param tool_senddata the tool_senddata to set
 		 */
-		public void setBbdn_tool_send_userdata(int bbdn_tool_send_userdata) {
-			this.bbdn_tool_send_userdata = bbdn_tool_send_userdata;
+		public void setTool_senddata(int tool_senddata) {
+			this.tool_senddata = tool_senddata;
 		}
 
 		/**
-		 * @return the bbdn_tool_send_role_ind
+		 * @return the tool_sendrole_ind
 		 */
-		public char getBbdn_tool_send_role_ind() {
-			return bbdn_tool_send_role_ind;
+		public char getTool_sendrole_ind() {
+			return tool_sendrole_ind;
 		}
 
 		/**
-		 * @param bbdn_tool_send_role_ind the bbdn_tool_send_role_ind to set
+		 * @param tool_sendrole_ind the tool_sendrole_ind to set
 		 */
-		public void setBbdn_tool_send_role_ind(char bbdn_tool_send_role_ind) {
-			this.bbdn_tool_send_role_ind = bbdn_tool_send_role_ind;
+		public void setTool_sendrole_ind(char tool_sendrole_ind) {
+			this.tool_sendrole_ind = tool_sendrole_ind;
 		}
 
 		/**
-		 * @return the bbdn_tool_send_username_ind
+		 * @return the tool_sendname_ind
 		 */
-		public char getBbdn_tool_send_username_ind() {
-			return bbdn_tool_send_username_ind;
+		public char getTool_sendname_ind() {
+			return tool_sendname_ind;
 		}
 
 		/**
-		 * @param bbdn_tool_send_username_ind the bbdn_tool_send_username_ind to set
+		 * @param tool_sendname_ind the tool_sendname_ind to set
 		 */
-		public void setBbdn_tool_send_username_ind(char bbdn_tool_send_username_ind) {
-			this.bbdn_tool_send_username_ind = bbdn_tool_send_username_ind;
+		public void setTool_sendname_ind(char tool_sendname_ind) {
+			this.tool_sendname_ind = tool_sendname_ind;
 		}
 
 		/**
-		 * @return the bbdn_tool_send_email_ind
+		 * @return the tool_sendemail_ind
 		 */
-		public char getBbdn_tool_send_email_ind() {
-			return bbdn_tool_send_email_ind;
+		public char getTool_sendemail_ind() {
+			return tool_sendemail_ind;
 		}
 
 		/**
-		 * @param bbdn_tool_send_email_ind the bbdn_tool_send_email_ind to set
+		 * @param tool_sendemail_ind the tool_sendemail_ind to set
 		 */
-		public void setBbdn_tool_send_email_ind(char bbdn_tool_send_email_ind) {
-			this.bbdn_tool_send_email_ind = bbdn_tool_send_email_ind;
+		public void setTool_sendemail_ind(char tool_sendemail_ind) {
+			this.tool_sendemail_ind = tool_sendemail_ind;
 		}
 
 		/**
-		 * @return the bbdn_tool_provide_roster_ind
+		 * @return the tool_userack_ind
 		 */
-		public char getBbdn_tool_provide_roster_ind() {
-			return bbdn_tool_provide_roster_ind;
+		public char getTool_userack_ind() {
+			return tool_userack_ind;
 		}
 
 		/**
-		 * @param bbdn_tool_provide_roster_ind the bbdn_tool_provide_roster_ind to set
+		 * @param tool_userack_ind the tool_userack_ind to set
 		 */
-		public void setBbdn_tool_provide_roster_ind(char bbdn_tool_provide_roster_ind) {
-			this.bbdn_tool_provide_roster_ind = bbdn_tool_provide_roster_ind;
+		public void setTool_userack_ind(char tool_userack_ind) {
+			this.tool_userack_ind = tool_userack_ind;
 		}
 
 		/**
-		 * @return the bbdn_tool_external_settings_ind
+		 * @return the tool_ackmsg
 		 */
-		public char getBbdn_tool_external_settings_ind() {
-			return bbdn_tool_external_settings_ind;
+		public String getTool_ackmsg() {
+			return tool_ackmsg;
 		}
 
 		/**
-		 * @param bbdn_tool_external_settings_ind the bbdn_tool_external_settings_ind to set
+		 * @param tool_ackmsg the tool_ackmsg to set
 		 */
-		public void setBbdn_tool_external_settings_ind(
-				char bbdn_tool_external_settings_ind) {
-			this.bbdn_tool_external_settings_ind = bbdn_tool_external_settings_ind;
+		public void setTool_ackmsg(String tool_ackmsg) {
+			this.tool_ackmsg = tool_ackmsg;
 		}
 
-		/**
-		 * @return the bbdn_tool_access_lessons_ind
-		 */
-		public char getBbdn_tool_access_lessons_ind() {
-			return bbdn_tool_access_lessons_ind;
-		}
-
-		/**
-		 * @param bbdn_tool_access_lessons_ind the bbdn_tool_access_lessons_ind to set
-		 */
-		public void setBbdn_tool_access_lessons_ind(char bbdn_tool_access_lessons_ind) {
-			this.bbdn_tool_access_lessons_ind = bbdn_tool_access_lessons_ind;
-		}
-
-		/**
-		 * @return the bbdn_tool_user_ack_ind
-		 */
-		public char getBbdn_tool_user_ack_ind() {
-			return bbdn_tool_user_ack_ind;
-		}
-
-		/**
-		 * @param bbdn_tool_user_ack_ind the bbdn_tool_user_ack_ind to set
-		 */
-		public void setBbdn_tool_user_ack_ind(char bbdn_tool_user_ack_ind) {
-			this.bbdn_tool_user_ack_ind = bbdn_tool_user_ack_ind;
-		}
-
-		/**
-		 * @return the bbdn_tool_user_ack_msg
-		 */
-		public FormattedText getBbdn_tool_user_ack_msg() {
-			return bbdn_tool_user_ack_msg;
-		}
-
-		/**
-		 * @param bbdn_tool_user_ack_msg the bbdn_tool_user_ack_msg to set
-		 */
-		public void setBbdn_tool_user_ack_msg(FormattedText bbdn_tool_user_ack_msg) {
-			this.bbdn_tool_user_ack_msg = bbdn_tool_user_ack_msg;
-		}
-
-		   
 }

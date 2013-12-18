@@ -15,22 +15,22 @@ import blackboard.persist.dao.impl.SimpleDAO;
 import blackboard.persist.impl.SimpleSelectQuery;
 import blackboard.util.StringUtil;
 
-public class Lti2GlobalSettingsDAO extends SimpleDAO<Lti2GlobalSettings>
+public class Lti2PropertiesDAO extends SimpleDAO<Lti2Properties>
 {
 
-	public Lti2GlobalSettingsDAO() {
-		super(Lti2GlobalSettings.class);
+	public Lti2PropertiesDAO() {
+		super(Lti2Properties.class);
 	}
 
-	public Lti2GlobalSettingsDAO(Class<Lti2GlobalSettings> cls) {
+	public Lti2PropertiesDAO(Class<Lti2Properties> cls) {
 		super(cls);
 	}
 
-	public List<Lti2GlobalSettings> loadAll() {
+	public List<Lti2Properties> loadAll() {
 		return getDAOSupport().loadAll();
 	}
 
-	public List<Lti2GlobalSettings> searchByCourseBatchUid(String courseBatchUid) 
+	public List<Lti2Properties> searchByCourseBatchUid(String courseBatchUid) 
 			throws KeyNotFoundException {
 		if (!StringUtil.isEmpty(courseBatchUid)) {
 			SimpleSelectQuery query = new SimpleSelectQuery(getDAOSupport().getMap());
@@ -41,15 +41,15 @@ public class Lti2GlobalSettingsDAO extends SimpleDAO<Lti2GlobalSettings>
 		return null;  
 	} 
 	
-    public Lti2GlobalSettings load() {
-        List<Lti2GlobalSettings> globalSettings;
+    public Lti2Properties load() {
+        List<Lti2Properties> globalSettings;
         globalSettings = getDAOSupport().loadAll();
         if(globalSettings!=null&&!globalSettings.isEmpty())
         return globalSettings.get(0);
         else return null;
     } 
     
-    public void save(Lti2GlobalSettings globalSettings) {
+    public void save(Lti2Properties globalSettings) {
         System.out.println(globalSettings);        
                 
         getDAOSupport().persist(globalSettings);
@@ -57,7 +57,7 @@ public class Lti2GlobalSettingsDAO extends SimpleDAO<Lti2GlobalSettings>
     
     public boolean isInstalled(){
         //System.out.print("\nisInstalled called\n");
-        List<Lti2GlobalSettings> globalSettings = null;
+        List<Lti2Properties> globalSettings = null;
         globalSettings = getDAOSupport().loadAll();
         if (globalSettings.size() > 0) {
             return true;
@@ -66,7 +66,7 @@ public class Lti2GlobalSettingsDAO extends SimpleDAO<Lti2GlobalSettings>
     }
     
     public void writeDefaults() {
-    	Lti2GlobalSettings globalSettings = new Lti2GlobalSettings();
+    	Lti2Properties globalSettings = new Lti2Properties();
         
         getDAOSupport().persist(globalSettings);
         

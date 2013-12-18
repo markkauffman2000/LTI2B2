@@ -5,7 +5,7 @@
   <plugin>
 
     <name value="b2.name" />
-    <handle value="bbdn-lti2-prototype" />
+    <handle value="lti2" />
     <description value="b2.description" />
     <default-locale value="en_US" />
 
