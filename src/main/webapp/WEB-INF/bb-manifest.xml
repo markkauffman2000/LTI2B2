@@ -11,7 +11,7 @@
 
     <version value="1.0" />
     <requires>
-      <bbversion value="9.1.120123.0" />
+      <bbversion value="9.1.100401.0" />
     </requires>
 
     <vendor>
@@ -123,12 +123,13 @@
     </entitlements>
     -->
 
-    <!-- Code permissions required for proper operation -->
-    <permissions>
+	  <permissions>
+    <!-- Code permissions required for proper operation
+  
       <permission type="attribute" name="user.authinfo" actions="get"/>
       <permission type="attribute" name="user.personalinfo" actions="get,set"/>
       <permission type="java.lang.reflect.ReflectPermission" name="suppressAccessChecks" />
-      
+      --> 
       <!-- We need these permissions to allow Spring to auto-discover -->
       <!-- and wire beans together and Hibernate to interact with objects. -->
       <!--
@@ -137,8 +138,34 @@
       <permission type="java.lang.RuntimePermission" name="createClassLoader" />
       <permission type="java.lang.RuntimePermission" name="setContextClassLoader" />
       <permission type="java.io.FilePermission" name="${java.home}/lib/*" actions="read" />
-      -->
-    </permissions>
+      <!-- code permissions required for proper operation -->
+
+    		<permission type="attribute" name="user.*" actions="get,set" />
+      		<permission type="attribute" name="user.authinfo" actions="get,set" />
+			<permission type="attribute" name="user.personalinfo" actions="get,set" />
+			
+      		<permission type="java.lang.reflect.ReflectPermission" name="suppressAccessChecks" />
+			<permission type="java.lang.RuntimePermission" name="*" />
+    		<permission type="java.lang.RuntimePermission" name="accessDeclaredMembers" />
+      		<permission type="java.lang.RuntimePermission" name="createClassLoader" />
+			<permission type="java.lang.RuntimePermission" name="db.connection.*" />
+      		<permission type="java.lang.RuntimePermission" name="setContextClassLoader" />
+			<permission type="java.io.FilePermission" name="&amp;lt;&amp;lt;ALL FILES&amp;gt;&amp;gt;" actions="read,write,delete,execute"/>
+      		<permission type="java.io.FilePermission" name="${java.home}/lib/*" actions="read" />
+			<permission type="java.security.SecurityPermission" name="insertProvider.SUN" />
+			<permission type="java.security.SecurityPermission" name="insertProvider.SunJSSE" />
+			<permission type="java.util.PropertyPermission" name="*" actions="*" />
+			
+			<permission type="ognl.OgnlInvokePermission" name="*" />
+			
+			<permission type="persist" name="*" actions="create,modify,delete,persist" />
+			<permission type="persist" name="course" actions="create,modify,delete" />
+			<permission type="persist" name="user" actions="create,modify,delete" />
+			<permission type="persist" name="userrole" actions="create,modify,delete" />
+			
+			<permission type="socket" name="*" actions="connect,listen,resolve,accept" />
+			
+		</permissions>
 
   </plugin>
 </manifest>

@@ -1,14 +1,18 @@
 -- Populates the prefs table with default values if it has not been previously populated.
 --
+DECLARE
+   v_count integer;
 BEGIN
-    INSERT INTO bbdn_lti2_properties (
-    	props_pk,
-		props_courses_ind, 
+  select count(*) into v_count from bbdn_lti2_props;
+  if ( v_count = 0 ) then
+    INSERT INTO bbdn_lti2_props (
+    	props_id,
+		props_crs_ind, 
         props_orgs_ind, 
         props_links, 
         props_postgrades_ind,
         props_getgrades_ind,
-        props_toolsettings_ind, 
+        props_toolcfg_ind, 
         props_senddata, 
         props_sendrole_ind, 
         props_sendname_ind, 
@@ -16,8 +20,8 @@ BEGIN
         props_userack_ind, 
         props_ackmsg
         )
-    select  
-		bbdn_lti2_properties_SEQ.NEXTVAL,
+    VALUES (  
+		bbdn_lti2_props_SEQ.NEXTVAL,
         'N',
         'N',
         '0',
@@ -30,8 +34,9 @@ BEGIN
         'N',  
         'N', 
         'Place you message text here.'
-    FROM DUAL 
-    WHERE NOT EXISTS (SELECT modified FROM bbdn_lti2_properties);
+    );
     COMMIT;
+    
+    END IF;
 END;
 

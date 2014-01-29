@@ -1,36 +1,38 @@
 -- Populates the prefs table with default values if it has not been previously populated.
 --
-BEGIN
-    INSERT INTO bbdn_lti2_properties (
-    	props_pk,
-		props_courses_ind, 
-        props_orgs_ind, 
-        props_links, 
-        props_postgrades_ind,
-        props_getgrades_ind,
-        props_toolsettings_ind, 
-        props_senddata, 
-        props_sendrole_ind, 
-        props_sendname_ind, 
-        props_sendemail_ind, 
-        props_userack_ind, 
-        props_ackmsg
-        )
-    select  
-		bbdn_lti2_properties_SEQ.NEXTVAL,
-        'N',
-        'N',
-        '0',
-        'N',
-        'N',
-        'N',
-        '0', 
-        'N', 
-        'N', 
-        'N',  
-        'N', 
-        'Place you message text here.'
-    FROM DUAL 
-    WHERE NOT EXISTS (SELECT modified FROM bbdn_lti2_properties);
+BEGIN;
+    INSERT INTO bbdn_lti2_props (
+		props_id,
+		props_crs_ind, 
+		props_orgs_ind, 
+		props_links, 
+		props_postgrades_ind,
+		props_getgrades_ind,
+		props_toolcfg_ind, 
+		props_senddata, 
+		props_sendrole_ind, 
+		props_sendname_ind, 
+		props_sendemail_ind, 
+		props_userack_ind, 
+		props_ackmsg
+	)
+	SELECT 
+		nextval('bbdn_lti2_props_SEQ'),
+		'N',
+		'N',
+		'0',
+		'N',
+		'N',
+		'N',
+		'0', 
+		'N', 
+		'N', 
+		'N',  
+		'N', 
+		'Place you message text here.'
+	WHERE 
+    	NOT EXISTS (
+			SELECT * FROM bbdn_lti2_props
+		);
     COMMIT;
 END;

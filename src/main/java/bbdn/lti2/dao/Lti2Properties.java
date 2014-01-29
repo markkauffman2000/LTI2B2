@@ -6,7 +6,7 @@ import blackboard.persist.impl.mapping.annotation.Column;
 import blackboard.persist.impl.mapping.annotation.PrimaryKey;
 import blackboard.persist.impl.mapping.annotation.Table;
 
-@Table("bbdn_lti2_properties")
+@Table("bbdn_lti2_props")
 public class Lti2Properties  extends AbstractIdentifiable {
 
 		   public static final DataType DATA_TYPE = new DataType( Lti2Properties.class );
@@ -18,8 +18,8 @@ public class Lti2Properties  extends AbstractIdentifiable {
 		   @PrimaryKey
 		   private int props_id;
 		  
-		   @Column(value = "props_courses_ind")
-		   private char props_courses_ind;
+		   @Column(value = "props_crs_ind")
+		   private char props_crs_ind;
 		   
 		   @Column(value = "props_orgs_ind")
 		   private char props_orgs_ind;
@@ -33,8 +33,8 @@ public class Lti2Properties  extends AbstractIdentifiable {
 		   @Column(value = "props_getgrades_ind")
 		   private char props_getgrades_ind;
 
-		   @Column(value = "props_toolsettings_ind")
-		   private char props_toolsettings_ind;
+		   @Column(value = "props_toolcfg_ind")
+		   private char props_toolcfg_ind;
 		   
 		   @Column(value = "props_senddata")
 		   private int props_senddata;
@@ -72,14 +72,14 @@ public class Lti2Properties  extends AbstractIdentifiable {
 		 * @return the props_courses_ind
 		 */
 		public char getProps_courses_ind() {
-			return props_courses_ind;
+			return props_crs_ind;
 		}
 
 		/**
 		 * @param props_courses_ind the props_courses_ind to set
 		 */
 		public void setProps_courses_ind(char props_courses_ind) {
-			this.props_courses_ind = props_courses_ind;
+			this.props_crs_ind = props_courses_ind;
 		}
 
 		/**
@@ -142,14 +142,14 @@ public class Lti2Properties  extends AbstractIdentifiable {
 		 * @return the props_toolsettings_ind
 		 */
 		public char getProps_toolsettings_ind() {
-			return props_toolsettings_ind;
+			return props_toolcfg_ind;
 		}
 
 		/**
 		 * @param props_toolsettings_ind the props_toolsettings_ind to set
 		 */
 		public void setProps_toolsettings_ind(char props_toolsettings_ind) {
-			this.props_toolsettings_ind = props_toolsettings_ind;
+			this.props_toolcfg_ind = props_toolsettings_ind;
 		}
 
 		/**

@@ -11,8 +11,8 @@ project.ext {
   learnVersion = "9.1.110082.0"
   springVersion = "3.1.1.RELEASE"
   hibernateVersion = "4.1.10.Final"
-  deployServer = "54.196.121.131"
-  deployInstance = "BBLEARN"
+  deployServer = System.getenv("GRADLE_DEPLOY_SERVER")
+  deployInstance = System.getenv("GRADLE_DEPLOY_INSTANCE")
 }
 
 repositories {

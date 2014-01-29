@@ -1,14 +1,14 @@
 -- Populates the prefs table with default values if it has not been previously populated.
 --
-IF (SELECT COUNT(*) FROM bbdn_lti2_global_settings) = 0
+IF (SELECT COUNT(*) FROM bbdn_lti2_props) = 0
 BEGIN
-    INSERT INTO bbdn_lti2_properties (
-        props_courses_ind, 
+    INSERT INTO bbdn_lti2_props (
+		props_crs_ind, 
         props_orgs_ind, 
         props_links, 
         props_postgrades_ind,
         props_getgrades_ind,
-        props_toolsettings_ind, 
+        props_toolcfg_ind, 
         props_senddata, 
         props_sendrole_ind, 
         props_sendname_ind, 

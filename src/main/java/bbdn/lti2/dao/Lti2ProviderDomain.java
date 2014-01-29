@@ -42,8 +42,8 @@ public class Lti2ProviderDomain  extends AbstractIdentifiable {
 		   @Column(value = "tool_getgrades_ind")
 		   private char tool_getgrades_ind;
 		   
-		   @Column(value = "tool_toolsettings_ind")
-		   private char tool_toolsettings_ind;
+		   @Column(value = "tool_toolcfg_ind")
+		   private char tool_toolcfg_ind;
 		   
 		   @Column(value = "tool_senddata")
 		   private int tool_senddata;
@@ -193,14 +193,14 @@ public class Lti2ProviderDomain  extends AbstractIdentifiable {
 		 * @return the tool_toolsettings_ind
 		 */
 		public char getTool_toolsettings_ind() {
-			return tool_toolsettings_ind;
+			return tool_toolcfg_ind;
 		}
 
 		/**
 		 * @param tool_toolsettings_ind the tool_toolsettings_ind to set
 		 */
 		public void setTool_toolsettings_ind(char tool_toolsettings_ind) {
-			this.tool_toolsettings_ind = tool_toolsettings_ind;
+			this.tool_toolcfg_ind = tool_toolsettings_ind;
 		}
 
 		/**

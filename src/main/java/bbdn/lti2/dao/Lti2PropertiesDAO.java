@@ -15,8 +15,7 @@ import blackboard.persist.dao.impl.SimpleDAO;
 import blackboard.persist.impl.SimpleSelectQuery;
 import blackboard.util.StringUtil;
 
-public class Lti2PropertiesDAO extends SimpleDAO<Lti2Properties>
-{
+public class Lti2PropertiesDAO extends SimpleDAO<Lti2Properties> {
 
 	public Lti2PropertiesDAO() {
 		super(Lti2Properties.class);
