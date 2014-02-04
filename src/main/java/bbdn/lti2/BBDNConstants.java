@@ -32,11 +32,11 @@ public class BBDNConstants {
 	public static final String BBDN_DISABLED = "N";
 	
 	/**
-	 * BBDN_ALLOW_NON_EXCLUDED=0
+	 * BBDN_ONLY_APPROVED_LINKS=0
 	 * <p>
-	 * Allow all links unless excluded by the System Administrator
+	 * Only approved links are allowed.
 	 */
-	public static final String BBDN_ALLOW_NON_EXCLUDED = "0";
+	public static final String BBDN_ONLY_APPROVED_LINKS = "0";
 	
 	/**
 	 * BBDN_ANY_LINK_WITH_APPROVAL=1
@@ -46,11 +46,12 @@ public class BBDNConstants {
 	public static final String BBDN_ANY_LINK_WITH_APPROVAL = "1";
 	
 	/**
-	 * BBDN_ONLY_APPROVED_LINKS=2
+	 * BBDN_ALLOW_NON_EXCLUDED=2
 	 * <p>
-	 * Only approved links are allowed.
+	 * Allow all links unless excluded by the System Administrator
 	 */
-	public static final String BBDN_ONLY_APPROVED_LINKS = "2";
+	public static final String BBDN_ALLOW_NON_EXCLUDED = "2";
+		
 	
 	/**
 	 * BBDN_USER_DATA_NEVER=0

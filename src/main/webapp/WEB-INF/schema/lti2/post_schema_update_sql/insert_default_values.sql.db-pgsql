@@ -2,7 +2,7 @@
 --
 BEGIN;
     INSERT INTO bbdn_lti2_props (
-		props_id,
+		pk1,
 		props_crs_ind, 
 		props_orgs_ind, 
 		props_links, 

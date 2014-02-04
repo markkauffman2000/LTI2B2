@@ -1,9 +1,12 @@
 package bbdn.lti2.dao;
 
 import blackboard.data.AbstractIdentifiable;
+import blackboard.data.content.Content;
 import blackboard.persist.DataType;
+import blackboard.persist.Id;
 import blackboard.persist.impl.mapping.annotation.Column;
 import blackboard.persist.impl.mapping.annotation.PrimaryKey;
+import blackboard.persist.impl.mapping.annotation.RefersTo;
 import blackboard.persist.impl.mapping.annotation.Table;
 
 @Table("bbdn_lti2_links")
@@ -16,7 +19,7 @@ public class Lti2Link  extends AbstractIdentifiable {
 		   }
 
 		   @PrimaryKey
-		   private int link_id;
+		   private int pk1;
 		  
 		   @Column(value = "link_title")
 		   private String link_title;
@@ -34,120 +37,116 @@ public class Lti2Link  extends AbstractIdentifiable {
 		   private String link_customparams;
 		   
 		   @Column(value = "link_tool_id")
+		   @RefersTo(Lti2ProviderDomain.class)
 		   private int link_tool_id;
 		   
 		   @Column(value = "link_content_id")
-		   private int link_content_id;
+		   @RefersTo(Content.class)
+		   private Id link_content_id;
 
-		/**
+
+	   /**
 		 * @return the link_id
 		 */
-		public int getLink_id() {
-			return link_id;
+		public int getLinkId() {
+			return pk1;
 		}
-
-		/**
-		 * @param link_id the link_id to set
-		 */
-		public void setLink_id(int link_id) {
-			this.link_id = link_id;
-		}
-
+			
 		/**
 		 * @return the link_title
 		 */
-		public String getLink_title() {
+		public String getTitle() {
 			return link_title;
 		}
 
 		/**
 		 * @param link_title the link_title to set
 		 */
-		public void setLink_title(String link_title) {
+		public void setTitle(String link_title) {
 			this.link_title = link_title;
 		}
 
 		/**
 		 * @return the link_url
 		 */
-		public String getLink_url() {
+		public String getUrl() {
 			return link_url;
 		}
 
 		/**
 		 * @param link_url the link_url to set
 		 */
-		public void setLink_url(String link_url) {
+		public void setUrl(String link_url) {
 			this.link_url = link_url;
 		}
 
 		/**
 		 * @return the link_key
 		 */
-		public String getLink_key() {
+		public String getConsumerKey() {
 			return link_key;
 		}
 
 		/**
 		 * @param link_key the link_key to set
 		 */
-		public void setLink_key(String link_key) {
+		public void setConsumerKey(String link_key) {
 			this.link_key = link_key;
 		}
 
 		/**
 		 * @return the link_secret
 		 */
-		public String getLink_secret() {
+		public String getSharedSecret() {
 			return link_secret;
 		}
 
 		/**
 		 * @param link_secret the link_secret to set
 		 */
-		public void setLink_secret(String link_secret) {
+		public void setSharedSecret(String link_secret) {
 			this.link_secret = link_secret;
 		}
 
 		/**
 		 * @return the link_customparams
 		 */
-		public String getLink_customparams() {
+		public String getCustomParams() {
 			return link_customparams;
 		}
 
 		/**
 		 * @param link_customparams the link_customparams to set
 		 */
-		public void setLink_customparams(String link_customparams) {
+		public void setCustomParams(String link_customparams) {
 			this.link_customparams = link_customparams;
 		}
 
 		/**
 		 * @return the link_tool_id
 		 */
-		public int getLink_tool_id() {
+		public int getToolId() {
 			return link_tool_id;
 		}
 
 		/**
 		 * @param link_tool_id the link_tool_id to set
 		 */
-		public void setLink_tool_id(int link_tool_id) {
+		public void setToolId(int link_tool_id) {
 			this.link_tool_id = link_tool_id;
 		}
 
 		/**
 		 * @return the link_content_id
 		 */
-		public int getLink_content_id() {
+		public Id getContentId() {
 			return link_content_id;
 		}
 
 		/**
 		 * @param link_content_id the link_content_id to set
 		 */
-		public void setLink_content_id(int link_content_id) {
+		public void setContentId(Id link_content_id) {
 			this.link_content_id = link_content_id;
 		}
 

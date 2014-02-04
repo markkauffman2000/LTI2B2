@@ -8,23 +8,18 @@
 
 <%@ taglib uri="/bbNG" prefix="bbNG"%>
 
-<%
-	FormattedText defaultText = new FormattedText("Place your message text here.", FormattedText.Type.PLAIN_TEXT );
-	String navItem = request.getParameter("navItem");
-%>
+<% FormattedText defaultText = new FormattedText("You are now leaving Blackboard.",FormattedText.Type.PLAIN_TEXT); %>
 
 <bbNG:genericPage
         title="Register LTI 2.0 Provider Domain"
         ctxId="ctx"
         entitlement='system.admin.VIEW'
-        navItem="<%=navItem%>">
+        navItem="bbdn-lti2-app-nav-1">
 
         <bbNG:pageHeader 
         	instructions="Create a new registered provider domain, configure, and set policies. The provider domain, and secondary hostnames must be unique.">
         	
-        	<bbNG:breadcrumbBar environment="SYS_ADMIN">
-        		<bbNG:breadcrumb>LTI 2.0 Global Settings</bbNG:breadcrumb>
-        	</bbNG:breadcrumbBar>
+        	<bbNG:breadcrumbBar environment="SYS_ADMIN" />
             
             <bbNG:pageTitleBar>
                     Register LTI 2.0 Provider Domain

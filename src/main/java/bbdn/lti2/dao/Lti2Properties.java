@@ -16,225 +16,300 @@ public class Lti2Properties  extends AbstractIdentifiable {
 		   }
 
 		   @PrimaryKey
-		   private int props_id;
+		   private int pk1;
 		  
 		   @Column(value = "props_crs_ind")
-		   private char props_crs_ind;
+		   private String props_crs_ind;
 		   
 		   @Column(value = "props_orgs_ind")
-		   private char props_orgs_ind;
+		   private String props_orgs_ind;
 		 
 		   @Column(value = "props_links")
 		   private int props_links;
 		 
 		   @Column(value = "props_postgrades_ind")
-		   private char props_postgrades_ind;
+		   private String props_postgrades_ind;
 		 
 		   @Column(value = "props_getgrades_ind")
-		   private char props_getgrades_ind;
+		   private String props_getgrades_ind;
 
 		   @Column(value = "props_toolcfg_ind")
-		   private char props_toolcfg_ind;
+		   private String props_toolcfg_ind;
 		   
 		   @Column(value = "props_senddata")
 		   private int props_senddata;
 		   
 		   @Column(value = "props_sendrole_ind")
-		   private char props_sendrole_ind;
+		   private String props_sendrole_ind;
 		   
 		   @Column(value = "props_sendname_ind")
-		   private char props_sendname_ind;
+		   private String props_sendname_ind;
 		   
 		   @Column(value = "props_sendemail_ind")
-		   private char props_sendemail_ind;
+		   private String props_sendemail_ind;
 
 		   @Column(value = "props_userack_ind")
-		   private char props_userack_ind;
+		   private String props_userack_ind;
 
 		   @Column(value = "props_ackmsg")
 		   private String props_ackmsg;
 
+
+		   /**
+			 * @return the props_id
+			 */
+			public int getPropertyId() {
+				return pk1;
+			}
+			
 		/**
-		 * @return the props_id
+		 * @return the props_crs_ind
 		 */
-		public int getProps_id() {
-			return props_id;
+		public Boolean isCourseEnabled() {
+			if ( this.props_crs_ind.equals("Y") ) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		/**
-		 * @param props_id the props_id to set
+		 * @param flag : If true, set props_crs_ind to 'Y', else 'N'
 		 */
-		public void setProps_id(int props_id) {
-			this.props_id = props_id;
-		}
-
-		/**
-		 * @return the props_courses_ind
-		 */
-		public char getProps_courses_ind() {
-			return props_crs_ind;
-		}
-
-		/**
-		 * @param props_courses_ind the props_courses_ind to set
-		 */
-		public void setProps_courses_ind(char props_courses_ind) {
-			this.props_crs_ind = props_courses_ind;
+		public void enableCourses(Boolean flag) {
+			if (flag) {
+				this.props_crs_ind = "Y";
+			} else {
+				this.props_crs_ind = "N";
+			}
+			
 		}
 
 		/**
 		 * @return the props_orgs_ind
 		 */
-		public char getProps_orgs_ind() {
-			return props_orgs_ind;
+		public Boolean isOrgsEnabled() {
+			if ( this.props_orgs_ind.equals("Y") ) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		/**
-		 * @param props_orgs_ind the props_orgs_ind to set
+		 * @param flag : If true, set props_orgs_ind to 'Y', else 'N'
 		 */
-		public void setProps_orgs_ind(char props_orgs_ind) {
-			this.props_orgs_ind = props_orgs_ind;
+		public void enableOrgs(Boolean flag) {
+			if (flag) {
+				this.props_orgs_ind = "Y";
+			} else {
+				this.props_orgs_ind = "N";
+			}
+			
 		}
 
 		/**
 		 * @return the props_links
 		 */
-		public int getProps_links() {
+		public int getPropertyLinkType() {
 			return props_links;
 		}
 
 		/**
 		 * @param props_links the props_links to set
 		 */
-		public void setProps_links(int props_links) {
+		public void setPropertyLinkType(int props_links) {
 			this.props_links = props_links;
 		}
 
 		/**
 		 * @return the props_postgrades_ind
 		 */
-		public char getProps_postgrades_ind() {
-			return props_postgrades_ind;
+		public Boolean isPostGradesEnabled() {
+			if ( this.props_postgrades_ind.equals("Y") ) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		/**
-		 * @param props_postgrades_ind the props_postgrades_ind to set
+		 * @param flag : If true, set props_postgrades_ind to 'Y', else 'N'
 		 */
-		public void setProps_postgrades_ind(char props_postgrades_ind) {
-			this.props_postgrades_ind = props_postgrades_ind;
+		public void enablePostGrades(Boolean flag) {
+			if (flag) {
+				this.props_postgrades_ind = "Y";
+			} else {
+				this.props_postgrades_ind = "N";
+			}
+			
 		}
 
 		/**
 		 * @return the props_getgrades_ind
 		 */
-		public char getProps_getgrades_ind() {
-			return props_getgrades_ind;
+		public Boolean isGetGradesEnabled() {
+			if ( this.props_getgrades_ind.equals("Y") ) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		/**
-		 * @param props_getgrades_ind the props_getgrades_ind to set
+		 * @param flag : If true, set props_getgrades_ind to 'Y', else 'N'
 		 */
-		public void setProps_getgrades_ind(char props_getgrades_ind) {
-			this.props_getgrades_ind = props_getgrades_ind;
+		public void enableGetGrades(Boolean flag) {
+			if (flag) {
+				this.props_getgrades_ind = "Y";
+			} else {
+				this.props_getgrades_ind = "N";
+			}
+			
 		}
 
 		/**
-		 * @return the props_toolsettings_ind
+		 * @return the props_toolcfg_ind
 		 */
-		public char getProps_toolsettings_ind() {
-			return props_toolcfg_ind;
+		public Boolean isToolSettingsEnabled() {
+			if ( this.props_toolcfg_ind.equals("Y") ) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		/**
-		 * @param props_toolsettings_ind the props_toolsettings_ind to set
+		 * @param flag : If true, set props_toolcfg_ind to 'Y', else 'N'
 		 */
-		public void setProps_toolsettings_ind(char props_toolsettings_ind) {
-			this.props_toolcfg_ind = props_toolsettings_ind;
+		public void enableToolSettings(Boolean flag) {
+			if (flag) {
+				this.props_toolcfg_ind = "Y";
+			} else {
+				this.props_toolcfg_ind = "N";
+			}
+			
 		}
 
 		/**
 		 * @return the props_senddata
 		 */
-		public int getProps_senddata() {
+		public int getSendDataConfig() {
 			return props_senddata;
 		}
 
 		/**
 		 * @param props_senddata the props_senddata to set
 		 */
-		public void setProps_senddata(int props_senddata) {
+		public void setSendDataConfig(int props_senddata) {
 			this.props_senddata = props_senddata;
 		}
 
 		/**
 		 * @return the props_sendrole_ind
 		 */
-		public char getProps_sendrole_ind() {
-			return props_sendrole_ind;
+		public Boolean isSendRoleEnabled() {
+			if ( this.props_sendrole_ind.equals("Y") ) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		/**
-		 * @param props_sendrole_ind the props_sendrole_ind to set
+		 * @param flag : If true, set props_sendrole_ind to 'Y', else 'N'
 		 */
-		public void setProps_sendrole_ind(char props_sendrole_ind) {
-			this.props_sendrole_ind = props_sendrole_ind;
+		public void enableSendRole(Boolean flag) {
+			if (flag) {
+				this.props_sendrole_ind = "Y";
+			} else {
+				this.props_sendrole_ind = "N";
+			}
+			
 		}
 
 		/**
 		 * @return the props_sendname_ind
 		 */
-		public char getProps_sendname_ind() {
-			return props_sendname_ind;
+		public Boolean isSendNameEnabled() {
+			if ( this.props_sendname_ind.equals("Y") ) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		/**
-		 * @param props_sendname_ind the props_sendname_ind to set
+		 * @param flag : If true, set props_sendname_ind to 'Y', else 'N'
 		 */
-		public void setProps_sendname_ind(char props_sendname_ind) {
-			this.props_sendname_ind = props_sendname_ind;
+		public void enableSendName(Boolean flag) {
+			if (flag) {
+				this.props_sendname_ind = "Y";
+			} else {
+				this.props_sendname_ind = "N";
+			}
+			
 		}
 
 		/**
 		 * @return the props_sendemail_ind
 		 */
-		public char getProps_sendemail_ind() {
-			return props_sendemail_ind;
+		public Boolean isSendEMailEnabled() {
+			if ( this.props_sendemail_ind.equals("Y") ) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		/**
-		 * @param props_sendemail_ind the props_sendemail_ind to set
+		 * @param flag : If true, set props_sendemail_ind to 'Y', else 'N'
 		 */
-		public void setProps_sendemail_ind(char props_sendemail_ind) {
-			this.props_sendemail_ind = props_sendemail_ind;
+		public void enableSendEMail(Boolean flag) {
+			if (flag) {
+				this.props_sendemail_ind = "Y";
+			} else {
+				this.props_sendemail_ind = "N";
+			}
+			
 		}
 
 		/**
 		 * @return the props_userack_ind
 		 */
-		public char getProps_userack_ind() {
-			return props_userack_ind;
+
+		public Boolean isSplashScreenEnabled() {
+			if ( this.props_userack_ind.equals("Y") ) {
+				return true;
+			} else {
+				return false;
+			}
 		}
 
 		/**
-		 * @param props_userack_ind the props_userack_ind to set
+		 * @param flag : If true, set props_userack_ind to 'Y', else 'N'
 		 */
-		public void setProps_userack_ind(char props_userack_ind) {
-			this.props_userack_ind = props_userack_ind;
+		public void enableSplashScreen(Boolean flag) {
+			if (flag) {
+				this.props_userack_ind = "Y";
+			} else {
+				this.props_userack_ind = "N";
+			}
+			
 		}
 
 		/**
 		 * @return the props_ackmsg
 		 */
-		public String getProps_ackmsg() {
+		public String getSplashScreenMessage() {
 			return props_ackmsg;
 		}
 
 		/**
 		 * @param props_ackmsg the props_ackmsg to set
 		 */
-		public void setProps_ackmsg(String props_ackmsg) {
+		public void setSplashScreenMessage(String props_ackmsg) {
 			this.props_ackmsg = props_ackmsg;
 		}
-
 		   
 }

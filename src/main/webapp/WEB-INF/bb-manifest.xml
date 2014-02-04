@@ -24,12 +24,10 @@
 
     <!-- These two JSPs are displayed when the "remove" and "properties" buttons --> 
     <!-- are pressed on the Building Blocks administration page. -->
-    <!-- 
     <http-actions>
-      <config value="admin/configure.jsp"/>
-      <remove value="admin/remove.jsp"/>
+      <config value="settings.jsp"/>
+      <!-- <remove value="admin/remove.jsp"/> -->
     </http-actions>
-     -->    
 
     <application-defs>
       <application handle="lti2-app" type="shared" use-ssl="false" 

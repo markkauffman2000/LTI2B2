@@ -6,7 +6,7 @@ BEGIN
   select count(*) into v_count from bbdn_lti2_props;
   if ( v_count = 0 ) then
     INSERT INTO bbdn_lti2_props (
-    	props_id,
+    	pk1,
 		props_crs_ind, 
         props_orgs_ind, 
         props_links, 

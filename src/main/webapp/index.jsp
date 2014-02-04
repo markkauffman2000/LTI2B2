@@ -5,7 +5,9 @@
 <%@ page
 	import="bbdn.lti2.dao.Lti2ProviderDomain,
 				 bbdn.lti2.dao.Lti2ProviderDomainDAO,
-				 java.util.List"%>
+				 java.util.List,
+				 blackboard.platform.plugin.PlugInUtil,
+				 blackboard.persist.Id"%>
 
 <%@ taglib uri="/bbNG" prefix="bbNG"%>
 
@@ -15,6 +17,9 @@
 	<%
         	Lti2ProviderDomainDAO toolDao = new Lti2ProviderDomainDAO();
         	List<Lti2ProviderDomain> providers = toolDao.loadAll();
+        	
+        	PlugInUtil pu = new PlugInUtil();
+        	String sampleRegisterPath = pu.getUri("bbdn", "lti2", "lti2/register");
 		%>
 
 	<bbNG:pageHeader
@@ -22,9 +27,7 @@
         	including the status. Domains can be approved, excluded, and deleted. Use the Register Provider Domain 
         	option to create additional LTI 2.0 Tool Providers.">
 
-		<bbNG:breadcrumbBar environment="SYS_ADMIN" navItem="bbdn-lti2-app-nav-1">
-			<bbNG:breadcrumb>LTI 2.0 Tool Providers</bbNG:breadcrumb>
-		</bbNG:breadcrumbBar>
+		<bbNG:breadcrumbBar environment="SYS_ADMIN" />
 
 		<bbNG:pageTitleBar>
                     LTI 2.0 Tool Providers
@@ -32,9 +35,11 @@
 
 		<bbNG:actionControlBar>
 			<bbNG:actionButton url="settings.jsp"
-				title="Manage Global Properties" primary="false" />
+				title="Manage Global Properties" primary="true" />
 			<bbNG:actionButton url="register.jsp"
 				title="Register Provider Domain" primary="true" />
+				<bbNG:actionButton url="<%=sampleRegisterPath%>"
+				title="Test LTI 2.0" primary="false" />
 		</bbNG:actionControlBar>
 	</bbNG:pageHeader>
 	
@@ -71,11 +76,11 @@
 		</bbNG:listActionBar>
 
 		<bbNG:listCheckboxElement name="configIds"
-			value="<%=Integer.toString(provider.getTool_id())%>" />
+			value="<%=Integer.toString(provider.getToolId())%>" />
 
 		<bbNG:listElement name="domain" label="Domain" isRowHeader="true">
 			
-			<a href="http://<%=provider.getTool_domain()%>" target="_blank"><%=provider.getTool_domain()%></a>
+			<a href="http://<%=provider.getDomain()%>" target="_blank"><%=provider.getDomain()%></a>
 
 			<bbNG:listContextMenu menuLinkTitle="Edit">
 				<bbNG:contextMenuItem url="register.jsp" title="Edit" id="editItem" />
@@ -84,18 +89,18 @@
 
 		<bbNG:listElement name="status" label="Status">
 			
-			<%=provider.getTool_status_ind()%>
+			<%=Boolean.toString(provider.isDomainEnabled())%>
 		</bbNG:listElement>
 
 		<bbNG:listElement name="sendUserData" label="Sends User Data">
 			
-			<%=provider.getTool_senddata()%>
+			<%=provider.getSendDataConfig()%>
 		</bbNG:listElement>
 
 		<bbNG:listElement name="splashMessage"
 			label="User Acknowledgement Page">
 			
-			<%=provider.getTool_userack_ind()%>
+			<%=Boolean.toString(provider.isSplashScreenEnabled())%>
 		</bbNG:listElement>
 
 	</bbNG:inventoryList>

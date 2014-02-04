@@ -9,7 +9,7 @@
   <table name="bbdn_lti2_props">
   	<comment>This table stores the global settings for the LTI 2.0 Building Block</comment>
     
-    <column name="props_id" data-type="int" nullable="false" identity="true" comment="This is the surrogate primary key for the table." />
+    <column name="pk1" data-type="int" nullable="false" identity="true" comment="This is the surrogate primary key for the table." />
 
     <column name="props_crs_ind" data-type="CHAR(1)" nullable="false" comment="Are tools enabled for courses" >
     	<value-constraint name="bbdn_props_crs_i1">
@@ -93,7 +93,7 @@
     <column name="props_ackmsg" data-type="VARCHAR(256)" nullable="true" comment="message to notify user that they are leaving Blackboard"/>
     
     <primary-key name="bbdn_lti2_props_pk" comment="This is the name of primary key constraint on column settings_id.">
-      <columnref name="props_id" />
+      <columnref name="pk1" />
     </primary-key>
   
   </table>
@@ -101,7 +101,7 @@
   <table name="bbdn_lti2_tools">
   	<comment>This table contains the settings for each individual tool provider domain</comment>
   	
-    <column name="tool_id" data-type="int" nullable="false" identity="true" comment="This is the surrogate primary key for the table." />
+    <column name="pk1" data-type="int" nullable="false" identity="true" comment="This is the surrogate primary key for the table." />
     
     <column name="tool_domain" data-type="VARCHAR(256)" nullable="false" comment="Base domain for tool provider" />
     
@@ -187,7 +187,7 @@
     <column name="tool_ackmsg" data-type="VARCHAR(256)" nullable="true" comment="message to notify user that they are leaving Blackboard"/>
     
     <primary-key name="bbdn_lti2_tools_pk" comment="This is the name of primary key constraint on column tool_id.">
-      <columnref name="tool_id" />
+      <columnref name="pk1" />
     </primary-key>
   
   </table>
@@ -195,7 +195,7 @@
   <table name="bbdn_lti2_links">
   	<comment>This table contains all of the LTI2 links</comment>
   	
-    <column name="link_id" data-type="int" nullable="false" identity="true" comment="This is the surrogate primary key for the table." />
+    <column name="pk1" data-type="int" nullable="false" identity="true" comment="This is the surrogate primary key for the table." />
     
     <column name="link_title" data-type="VARCHAR(256)" nullable="false" comment="Link Title" />
     
@@ -212,7 +212,7 @@
     <column name="link_content_id" data-type="int" nullable="true" comment="Reference to the content table in Learn for links entered as content items." />
     
     <primary-key name="bbdn_lti2_links_pk" comment="This is the name of primary key constraint on column bbdn_link_id">
-      <columnref name="link_id" />
+      <columnref name="pk1" />
     </primary-key>
     
     <foreign-key name="bbdn_lti2_links_fk1" reference-table="bbdn_lti2_tools" on-delete="cascade" comment="This is a foreign key referencing a primary key in the lti2 tools table, referential action cascade on delete (cascade) - all relevant entries will be deleted if the domain provider entry is deleted.">
