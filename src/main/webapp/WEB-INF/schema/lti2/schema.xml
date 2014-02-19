@@ -112,7 +112,7 @@
 		</value-constraint>
 	</column>
 		
-    <column name="tool_sechost" data-type="VARCHAR(256)" nullable="false" comment="List of secondary hostnames, delimited by |" />
+    <column name="tool_sechost" data-type="VARCHAR(256)" nullable="true" comment="List of secondary hostnames, delimited by |" />
     
     <column name="tool_global_ind" data-type="CHAR(1)" nullable="false" comment="If Y, settings for tool affect all links. If N, each link is responsible for its own configuration" >
     	<value-constraint name="bbdn_tool_global_i1">
@@ -121,11 +121,11 @@
 		</value-constraint>
 	</column>
 		
-    <column name="tool_key" data-type="VARCHAR(256)" nullable="false" comment="The tool provider key. This is provided by the Tool Provider in LTI 2.0" />
+    <column name="tool_key" data-type="VARCHAR(256)" nullable="true" comment="The tool provider key. This is provided by the Tool Provider in LTI 2.0" />
     
-    <column name="tool_secret" data-type="VARCHAR(256)" nullable="false" comment="The tool provider shared secret. This is provided by the Tool Provider in LTI 2.0" />
+    <column name="tool_secret" data-type="VARCHAR(256)" nullable="true" comment="The tool provider shared secret. This is provided by the Tool Provider in LTI 2.0" />
     
-    <column name="tool_customparams" data-type="VARCHAR(256)" nullable="false" comment="Name-Value pairs delimited by | to be sent by Blackboard to the Tool Provider" />
+    <column name="tool_customparams" data-type="VARCHAR(256)" nullable="true" comment="Name-Value pairs delimited by | to be sent by Blackboard to the Tool Provider" />
         
     <column name="tool_postgrades_ind" data-type="CHAR(1)" nullable="false" comment="Allow configured tool providers to post grades." >
     	<value-constraint name="bbdn_tool_postgrades_i1">
@@ -205,7 +205,7 @@
     
     <column name="link_secret" data-type="VARCHAR(256)" nullable="true" comment="Secret, if set at the link level" />
     
-    <column name="link_customparams" data-type="VARCHAR(256)" nullable="false" comment="Name-Value pairs delimited by | to be sent by Blackboard to the Tool Provider" />
+    <column name="link_customparams" data-type="VARCHAR(256)" nullable="true" comment="Name-Value pairs delimited by | to be sent by Blackboard to the Tool Provider" />
     
     <column name="link_tool_id" data-type="int" nullable="true" comment="reference to the domain provider entry in the tools table." />
     

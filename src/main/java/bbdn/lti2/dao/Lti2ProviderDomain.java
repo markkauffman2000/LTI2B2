@@ -23,6 +23,9 @@ public class Lti2ProviderDomain  extends AbstractIdentifiable {
 		   
 		   @Column(value = "tool_status_ind")
 		   private String tool_status_ind;
+		   
+		   @Column(value = "tool_global_ind")
+		   private String tool_global_ind;
 		 
 		   @Column(value = "tool_sechost")
 		   private String tool_sechost;
@@ -103,6 +106,29 @@ public class Lti2ProviderDomain  extends AbstractIdentifiable {
 				this.tool_status_ind = "Y";
 			} else {
 				this.tool_status_ind = "N";
+			}
+			
+		}
+		
+		/**
+		 * @return the tool_status_ind
+		 */
+		public Boolean isDomainConfiguredGlobally() {
+			if ( this.tool_global_ind.equals("Y") ) {
+				return true;
+			} else {
+				return false;
+			}
+		}
+
+		/**
+		 * @param flag : If true, set tool_status_ind to 'Y', else 'N'
+		 */
+		public void setDomainConfigGlobally(Boolean flag) {
+			if (flag) {
+				this.tool_global_ind = "Y";
+			} else {
+				this.tool_global_ind = "N";
 			}
 			
 		}

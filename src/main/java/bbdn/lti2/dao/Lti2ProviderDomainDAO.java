@@ -30,16 +30,27 @@ public class Lti2ProviderDomainDAO extends SimpleDAO<Lti2ProviderDomain>
 		return getDAOSupport().loadAll();
 	}
 
-	public List<Lti2ProviderDomain> searchByCourseBatchUid(String courseBatchUid) 
+	public Lti2ProviderDomain loadById(String toolId) 
 			throws KeyNotFoundException {
-		if (!StringUtil.isEmpty(courseBatchUid)) {
+		if (!StringUtil.isEmpty(toolId)) {
 			SimpleSelectQuery query = new SimpleSelectQuery(getDAOSupport().getMap());
 			//Change column name to whatever the name is in the bean
-			query.addWhere("course_batch_uid", courseBatchUid);
-			return getDAOSupport().loadList(query);
+			query.addWhere("pk1", toolId);
+			return getDAOSupport().load(query);
 		}
 		return null;  
 	} 
+	
+	public Lti2ProviderDomain loadByDomain(String domain) 
+			throws KeyNotFoundException {
+		if (!StringUtil.isEmpty(domain)) {
+			SimpleSelectQuery query = new SimpleSelectQuery(getDAOSupport().getMap());
+			//Change column name to whatever the name is in the bean
+			query.addWhere("tool_domain", domain);
+			return getDAOSupport().load(query);
+		}
+		return null;  
+	}
 	
 	public Lti2ProviderDomain load() {
         List<Lti2ProviderDomain> providerDomain;

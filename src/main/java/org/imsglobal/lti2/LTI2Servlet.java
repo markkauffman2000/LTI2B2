@@ -211,7 +211,7 @@ public class LTI2Servlet extends HttpServlet {
 			output = BasicLTIUtil.postLaunchHTML(ltiProps, launch_url, dodebug);
 		} else {
 			output = "<form>Register URL:<br/><input type=\"text\" name=\"launch_url\" size=\"80\"\n" + 
-				"value=\"http://localhost:8888/sakai-api-test/tp.php\"><input type=\"submit\">\n";
+				"value=\"http://www.bboogle.com/sakai-api-test/tp.php\"><input type=\"submit\">\n";
 		}
 
 		try {

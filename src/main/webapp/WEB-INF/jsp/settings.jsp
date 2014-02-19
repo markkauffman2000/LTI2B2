@@ -14,82 +14,11 @@
 
 <%@ taglib uri="/bbNG" prefix="bbNG"%>
 
-<%!
-    private void saveProps(HttpServletRequest request) {
-		Lti2PropertiesDAO propsDAO = new Lti2PropertiesDAO();
-		Lti2Properties props = null;
-		props = propsDAO.load();
-        
-        //set all prefs to incoming request parameter values
-		props.enableCourses(Boolean.valueOf(request.getParameter("enabledCourse")));
-        props.enableOrgs(Boolean.valueOf(request.getParameter("enabledOrgs")));
-        props.setPropertyLinkType(Integer.parseInt(request.getParameter("linkCreation")));
-        props.enablePostGrades(Boolean.valueOf(request.getParameter("postGrades")));
-        props.enableGetGrades(Boolean.valueOf(request.getParameter("getGrades")));
-        props.enableToolSettings(Boolean.valueOf(request.getParameter("putToolSettingsContainer")));
-        props.setSendDataConfig(Integer.parseInt(request.getParameter("sendData")));
-        props.enableSendName(Boolean.valueOf(request.getParameter("sendUserName")));
-        props.enableSendRole(Boolean.valueOf(request.getParameter("sendUserRole")));
-        props.enableSendEMail(Boolean.valueOf(request.getParameter("sendUserEmail")));
-        props.enableSplashScreen(Boolean.valueOf(request.getParameter("userAck")));
-        props.setSplashScreenMessage(request.getParameter("userAckMsgtext"));
-        
-        //save the prefs
-        propsDAO.save(props);
-    }
-
-%>
-
 <bbNG:genericPage
         title="LTI 2.0 Global Settings"
         ctxId="ctx"
         entitlement='system.admin.VIEW'
         navItem="bbdn-lti2-app-nav-1">
-
-		<bbNG:jspBlock>
-			<%
-				PlugInUtil pu = new PlugInUtil();
-				String indexPage = pu.getUri("bbdn", "lti2", "index.jsp");
-				
-				if (request.getMethod().equalsIgnoreCase("POST")) {
-		        	saveProps(request);
-		        	response.sendRedirect(indexPage);
-		    	}
-		
-		    	Lti2PropertiesDAO propsDAO = new Lti2PropertiesDAO();
-				Lti2Properties props = null;
-				props = propsDAO.load();
-				
-				boolean courseEnabled = props.isCourseEnabled();		
-				boolean orgsEnabled = props.isOrgsEnabled();
-				boolean[] linkCreation = {false,false,false};
-				linkCreation[props.getPropertyLinkType()] = true;				
-				boolean postGrades = props.isPostGradesEnabled();
-				boolean getGrades = props.isGetGradesEnabled();
-				boolean toolConfig = props.isToolSettingsEnabled();
-				boolean[] sendDataConfig = {false,false,false};
-				sendDataConfig[props.getSendDataConfig()] = true;
-				boolean sendName = props.isSendNameEnabled();
-				boolean sendRole = props.isSendRoleEnabled();
-				boolean sendEmail = props.isSendEMailEnabled();
-				boolean displaySplash = props.isSplashScreenEnabled();
-				FormattedText splashMessage = FormattedText.toFormattedText(props.getSplashScreenMessage());
-				
-				pageContext.setAttribute("courseEnabled", courseEnabled);
-				pageContext.setAttribute("orgsEnabled", orgsEnabled);
-				pageContext.setAttribute("linkCreation", linkCreation);
-				pageContext.setAttribute("postGrades", postGrades);
-				pageContext.setAttribute("getGrades", getGrades);
-				pageContext.setAttribute("toolConfig", toolConfig);
-				pageContext.setAttribute("sendDataConfig", sendDataConfig);
-				pageContext.setAttribute("sendName", sendName);
-				pageContext.setAttribute("sendRole", sendRole);
-				pageContext.setAttribute("sendEmail", sendEmail);
-				pageContext.setAttribute("displaySplash", displaySplash);
-				pageContext.setAttribute("splashMessage", splashMessage);
-
-			%>
-		</bbNG:jspBlock>
 
         <bbNG:pageHeader 
         	instructions="Manage the Global Properties for all LTI 2.0 Tool Providers in use in the system. Determine the feature and service availability, and default configuration. Selecting the option to enable the feature will enable all approved LTI 2.0 Tool Providers.">
@@ -102,7 +31,7 @@
             
         </bbNG:pageHeader>
         
-        <bbNG:form action="settings.jsp" method="POST">
+        <bbNG:form action="saveProperties" method="POST">
         
         	<bbNG:dataCollection>
         		
