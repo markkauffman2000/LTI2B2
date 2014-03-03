@@ -35,21 +35,22 @@
             
         </bbNG:pageHeader>
 		
-        <bbNG:form action="approveDomain" method="POST">
+        <bbNG:form action="saveDomain" method="POST" isSecure="${ true }" nonceId="/saveDomain">
+        
+        <bbNG:hiddenElement name="actionType" value="save" />
+        <bbNG:hiddenElement name="toolIds" value="${toolIds}" />
         
         	<bbNG:dataCollection>
         		<bbNG:step title="Provider Domain Status" instructions="Set the status of the provider domain. You can also provide a list of additional hostnames to share this configuration if needed.">
-        			
-        			
         			<c:choose> 
-        				<c:when test="${action == 'register'}">
+        				<c:when test="${actionType == 'register'}">
         					<bbNG:hiddenElement name="domainStatus" value="${domainStatus}" />
         					<bbNG:hiddenElement name="toolKey" value="${key}" />
         					<bbNG:hiddenElement name="toolSecret" value="${secret}" />
         					<bbNG:hiddenElement name="secondaryHostnames" value="${sechostnames}" />
         					
-        					<bbNG:dataElement label="LTI 2.0 Tool Provider Registration URL" renderLegendAndFieldset="true" isRequired="true">
-        						<bbNG:textElement name="regUrl" id="regUrl" title="Registration URL" maxLength="255" minLength="1" value="" />
+        					<bbNG:dataElement label="Registration URL" renderLegendAndFieldset="true" isRequired="true">
+        						<bbNG:textElement name="domain" id="domain" title="LTI 2.0 Tool Provider Registration URL" maxLength="255" minLength="1" value="" />
         					</bbNG:dataElement>
         			
         				</c:when>
@@ -77,23 +78,32 @@
         					</bbNG:dataElement>
         				</c:otherwise>
         			</c:choose>
-        		
+        					
         		</bbNG:step>
         		
-        		<bbNG:step title="Default Configuration" instructions="LTI Tool Providers can request configuration per link, or can provide key and shared secret information for site-wide configuration." >
-        			
-        			<bbNG:dataElement label="Default Configuration" renderLegendAndFieldset="true">
-        				<bbNG:radioElement name="defaultConfig" id="defaultConfigSeparate" optionLabel="Set separately for each link" value="true" isSelected="${globalLinks}" />
-        				<bbNG:radioElement name="defaultConfig" id="defaultConfigGlobally" optionLabel="Set globally." value="false" isSelected="${!globalLinks}" />
-        			</bbNG:dataElement>
-        			
-        			<bbNG:dataElement label="Tool Provider Custom Parameters" labelFor="customParameters">
-          				<textarea name="customParameters" id="customParameters" rows="6" cols="55">${customParameters}</textarea>
-          				<bbNG:elementInstructions text="Enter any custom parameters required by the tool provider. Parameters must each be on their own line and be entered in \"name=value\" format."/>
-        			</bbNG:dataElement>
-        			
-        		</bbNG:step>
         		
+        		<c:choose> 
+        			<c:when test="${actionType == 'register'}">
+        				<bbNG:hiddenElement name="defaultConfig" value="${globalLinks}" />
+       					<bbNG:hiddenElement name="customParameters" value="${customParameters}" />
+       				</c:when>
+        			<c:otherwise>
+		        		<bbNG:step title="Default Configuration" instructions="LTI Tool Providers can request configuration per link, or can provide key and shared secret information for site-wide configuration." >
+		        			
+		        			<bbNG:dataElement label="Default Configuration" renderLegendAndFieldset="true">
+		        				<bbNG:radioElement name="defaultConfig" id="defaultConfigSeparate" optionLabel="Set separately for each link" value="true" isSelected="${globalLinks}" />
+		        				<bbNG:radioElement name="defaultConfig" id="defaultConfigGlobally" optionLabel="Set globally." value="false" isSelected="${!globalLinks}" />
+		        			</bbNG:dataElement>
+		        			
+		        			<bbNG:dataElement label="Tool Provider Custom Parameters" labelFor="customParameters">
+		          				<textarea name="customParameters" id="customParameters" rows="6" cols="55">${customParameters}</textarea>
+		          				<bbNG:elementInstructions text="Enter any custom parameters required by the tool provider. Parameters must each be on their own line and be entered in \"name=value\" format."/>
+		        			</bbNG:dataElement>
+		        			
+		        		</bbNG:step>
+		        	</c:otherwise>
+        		</c:choose>
+
         		<bbNG:step title="LTI 2.0 Tool Service Contract" instructions="LTI 2.0 allows the Tool Provider and Tool Consumer to negotiate the contract of allowable services. This section allows the admin to specifiy the allowed services for this tool provider.">
   
         			<bbNG:dataElement label="Allow configured tool providers to post grades" renderLegendAndFieldset="true">
@@ -129,9 +139,9 @@
         			</bbNG:dataElement>
         			
         			<c:choose> 
-        				<c:when test="${action == 'register'}">
-        					<bbNG:hiddenElement name="usrAck" value="${displaySplash}" />
-        					<bbNG:hiddenElement name="userAckMessagetext" value="${splashMessage}" />
+        				<c:when test="${actionType == 'register'}">
+        					<bbNG:hiddenElement name="userAck" value="${displaySplash}" />
+        					<bbNG:hiddenElement name="userAckMsgtext" value="${splashMessage}" />
         				</c:when>
         				<c:otherwise>	
         					<bbNG:dataElement label="Show user acknowledgement message" renderLegendAndFieldset="true">

@@ -31,7 +31,7 @@
             
         </bbNG:pageHeader>
         
-        <bbNG:form action="saveProperties" method="POST">
+        <bbNG:form action="saveProperties" method="POST" isSecure="${ true }" nonceId="/saveProperties">
         
         	<bbNG:dataCollection>
         		

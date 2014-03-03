@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import bbdn.lti2.dao.Lti2Properties;
@@ -61,31 +62,42 @@ public class Lti2SettingsController {
 	}
 
 	@RequestMapping("/saveProperties")
-	private void saveProps(HttpServletRequest request, HttpServletResponse response) {
+	private void saveProps(HttpServletRequest request, HttpServletResponse response,
+							@RequestParam("enabledCourse") String enabledCourse,
+							@RequestParam("enabledOrgs") String enabledOrgs,
+							@RequestParam("linkCreation") String linkCreation,
+							@RequestParam("postGrades") String postGrades,
+							@RequestParam("getGrades") String getGrades,
+							@RequestParam("putToolSettingsContainer") String putToolSettingsContainer,
+							@RequestParam("sendData") String sendData,
+							@RequestParam("sendUserName") String sendUserName,
+							@RequestParam("sendUserRole") String sendUserRole,
+							@RequestParam("sendUserEmail") String sendUserEmail,
+							@RequestParam("userAck") String userAck,
+							@RequestParam("userAckMsgtext") String userAckMsgtext
+							) {
 
 		Lti2Properties props = _dao.load();
-		
-		String indexPage = PlugInUtil.getUri("bbdn", "lti2", "index.jsp");
         
         //set all prefs to incoming request parameter values
-		props.enableCourses(Boolean.valueOf(request.getParameter("enabledCourse")));
-        props.enableOrgs(Boolean.valueOf(request.getParameter("enabledOrgs")));
-        props.setPropertyLinkType(Integer.parseInt(request.getParameter("linkCreation")));
-        props.enablePostGrades(Boolean.valueOf(request.getParameter("postGrades")));
-        props.enableGetGrades(Boolean.valueOf(request.getParameter("getGrades")));
-        props.enableToolSettings(Boolean.valueOf(request.getParameter("putToolSettingsContainer")));
-        props.setSendDataConfig(Integer.parseInt(request.getParameter("sendData")));
-        props.enableSendName(Boolean.valueOf(request.getParameter("sendUserName")));
-        props.enableSendRole(Boolean.valueOf(request.getParameter("sendUserRole")));
-        props.enableSendEMail(Boolean.valueOf(request.getParameter("sendUserEmail")));
-        props.enableSplashScreen(Boolean.valueOf(request.getParameter("userAck")));
-        props.setSplashScreenMessage(request.getParameter("userAckMsgtext"));
+		props.enableCourses(Boolean.valueOf(enabledCourse));
+        props.enableOrgs(Boolean.valueOf(enabledOrgs));
+        props.setPropertyLinkType(Integer.parseInt(linkCreation));
+        props.enablePostGrades(Boolean.valueOf(postGrades));
+        props.enableGetGrades(Boolean.valueOf(getGrades));
+        props.enableToolSettings(Boolean.valueOf(putToolSettingsContainer));
+        props.setSendDataConfig(Integer.parseInt(sendData));
+        props.enableSendName(Boolean.valueOf(sendUserName));
+        props.enableSendRole(Boolean.valueOf(sendUserRole));
+        props.enableSendEMail(Boolean.valueOf(sendUserEmail));
+        props.enableSplashScreen(Boolean.valueOf(userAck));
+        props.setSplashScreenMessage(userAckMsgtext);
         
         //save the prefs
         _dao.save(props);
         
         try {
-			response.sendRedirect(indexPage);
+			response.sendRedirect("index");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

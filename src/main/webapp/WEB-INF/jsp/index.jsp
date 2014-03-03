@@ -15,8 +15,53 @@
 <bbNG:genericPage title="LTI 2.0 Tool Providers" ctxId="ctx"
 	entitlement="system.admin.VIEW" navItem="bbdn-lti2-app-nav-1">
 	
-	<bbNG:jsFile href="${jsFilePath}"/>
-
+	<bbNG:jsBlock>
+		<script type="text/javascript">
+			var register =
+			{
+				onEdit : function ()
+				{
+					var form = $( 'domainManager');
+					form.action = 'editDomain';
+					form.actionType.value = 'edit';
+					form.submit();
+				},
+			    onApprove : function()
+			    {
+			      var form = $( 'domainManager' );
+			      form.action = 'approveDomain';
+			      form.actionType.value = 'approve';
+			      form.submit();
+			    },
+			    onExclude : function()
+			    {
+			      var form = $( 'domainManager' );
+			      form.action = 'excludeDomain';
+			      form.actionType.value = 'exclude';
+			      form.submit();
+			    },
+			    onDelete : function()
+			    {
+			      var form = $( 'domainManager' );
+			      form.action = 'deleteDomain';
+			      var ids = form.getInputs( 'checkbox', 'toolIds' ).filter( function( box )
+			      {
+			        return box.checked;
+			      } ).map( function( box )
+			      {
+			        return box.value;
+			      } );
+			
+			      var confirmMsg = 'Are you sure you want to delete this domain?'
+			      if ( confirm( confirmMsg ) )
+			      {
+			        form.actionType.value = 'delete';
+			        form.submit();
+			      }
+			    }
+			};
+		</script>
+	</bbNG:jsBlock>
 	<bbNG:pageHeader
 		instructions="This report is available to show all LTI 2.0 provider domains in use in the system, 
         	including the status. Domains can be approved, excluded, and deleted. Use the Register Provider Domain 
@@ -29,16 +74,16 @@
             </bbNG:pageTitleBar>
 
 		<bbNG:actionControlBar>
-			<bbNG:actionButton url="settings"
+			<bbNG:actionButton url="properties"
 				title="Manage Global Properties" primary="true" />
-			<bbNG:actionButton url="registerDomain"
+			<bbNG:actionButton url="register"
 				title="Register Provider Domain" primary="true" />
 			<bbNG:actionButton url="${sampleRegisterPath}"
 				title="Sample LTI 2.0" primary="false" />
 		</bbNG:actionControlBar>
 	</bbNG:pageHeader>
 	
-	<bbNG:form id="domainManager" action="registerDomain">
+	<bbNG:form id="domainManager" action="register" isSecure="${ true }" nonceId="/registerDomain">
 	<bbNG:hiddenElement name="actionType" value="register"/> 
 		<bbNG:inventoryList className="bbdn.lti2.dao.Lti2ProviderDomain"
 	                        collection="${providers}" objectVar="provider"

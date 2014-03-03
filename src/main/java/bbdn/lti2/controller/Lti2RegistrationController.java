@@ -1,6 +1,7 @@
 package bbdn.lti2.controller;
 
-import java.util.List;
+import java.io.IOException;
+//import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -8,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+//import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -17,95 +18,181 @@ import bbdn.lti2.dao.Lti2PropertiesDAO;
 import bbdn.lti2.dao.Lti2ProviderDomain;
 import bbdn.lti2.dao.Lti2ProviderDomainDAO;
 import blackboard.base.FormattedText;
-import blackboard.data.ReceiptOptions;
-import blackboard.persist.KeyNotFoundException;
-import blackboard.persist.PersistenceException;
-import blackboard.platform.plugin.PlugInException;
-import blackboard.platform.plugin.PlugInUtil;
-import blackboard.platform.servlet.InlineReceiptUtil;
+//import blackboard.data.ReceiptOptions;
+//import blackboard.persist.KeyNotFoundException;
+//import blackboard.persist.PersistenceException;
+//import blackboard.platform.plugin.PlugInException;
+//import blackboard.platform.plugin.PlugInUtil;
+//import blackboard.platform.servlet.InlineReceiptUtil;
 
 @Controller
 public class Lti2RegistrationController {
+	
 	@Autowired
 	private Lti2PropertiesDAO _propDAO;
 	
 	@Autowired
 	private Lti2ProviderDomainDAO _toolDAO;
 	
-	@RequestMapping("/registerDomain")
+	@RequestMapping( "/register" )
 	public ModelAndView create( HttpServletRequest request, HttpServletResponse response )
 	{
 		ModelAndView mv = new ModelAndView("register");
 		
 		Lti2ProviderDomain provider = createNewTool();
     	mv.addObject("provider", provider);
-    	mv.addObject("action", "register");
+    	mv.addObject("actionType", "register");
     	mv = buildModel(provider,mv);
     	
     	return mv;   
 	}
 	
-	@RequestMapping( "/editDomain" )
-	public ModelAndView edit( HttpServletRequest request, HttpServletResponse response, 
-			@RequestParam( "toolIds" ) String[] toolIds,
-			@RequestParam( "domain" ) String domain)
+	@RequestMapping( "/saveDomain" )
+	public void save( HttpServletRequest request, HttpServletResponse response, 
+						@RequestParam( "actionType" ) String actionType,
+						@RequestParam( "toolIds" ) String[] toolIds,
+						@RequestParam( "domain" ) String domain,
+						@RequestParam( "domainStatus" ) String domainStatus,
+						@RequestParam( "secondaryHostnames" ) String secondaryHostnames,
+						@RequestParam( "defaultConfig" ) String defaultConfig,
+						@RequestParam( "toolKey" ) String toolKey,
+						@RequestParam( "toolSecret" ) String toolSecret,
+						@RequestParam( "customParameters" ) String customParameters,
+						@RequestParam( "postGrades" ) String postGrades,
+						@RequestParam( "getGrades" ) String getGrades,
+						@RequestParam( "toolConfig" ) String toolConfig,
+						@RequestParam( "sendData" ) String sendData,
+						@RequestParam( "sendUserName" ) String sendName,
+						@RequestParam( "sendRole" ) String sendRole,
+						@RequestParam( "sendEmail" ) String sendEmail,
+						@RequestParam( "userAck" ) String userAck,
+						@RequestParam( "userAckMsgtext" ) String userAckMsgtext )
 	{
-		ModelAndView mv = new ModelAndView("register");
+		String toolId = "unknown";
+		Lti2ProviderDomain tool = null;
 		
-		Lti2ProviderDomain provider = createNewTool();
-    	mv.addObject("provider", provider);
-    	mv.addObject("action", "register");
-    	mv = buildModel(provider,mv);
-    	
-    	return mv; 
+		if(toolIds.length == 0) {
+			tool = createNewTool();
+			saveTool(tool, domain, domainStatus, secondaryHostnames, defaultConfig, 
+						toolKey, toolSecret, customParameters, postGrades, getGrades, 
+						toolConfig, sendData, sendName, sendRole, sendEmail, 
+						userAck, userAckMsgtext);
+			
+		} else {
+			for (int i = 0; i < toolIds.length; i++) {
+				if(!toolIds[i].isEmpty() && !toolIds[i].equalsIgnoreCase("unknown")) {
+					try {
+						tool = _toolDAO.loadById(toolId);
+					} catch (Exception knfe) {
+						System.out.println("Error loading Domain record for " + toolId + ": " + knfe.getLocalizedMessage() + "<br />");
+					}
+				} else {
+					tool = createNewTool();
+				}
+				
+				//set all prefs to incoming request parameter values
+				saveTool(tool, domain, domainStatus, secondaryHostnames, defaultConfig, 
+						toolKey, toolSecret, customParameters, postGrades, getGrades, 
+						toolConfig, sendData, sendName, sendRole, sendEmail, 
+						userAck, userAckMsgtext);
+			}
+		}
+		
+		// Temp for testing. This should call the Lti2 Registration work flow and eventually serve the registration form back 
+		// with the ability for the admin to approve the domain and add in the resulting key and secret from the registration.
+		try {
+			response.sendRedirect("index");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
+
+
+//	
+//	@RequestMapping( method = RequestMethod.POST, params = "actionType=edit" )
+//	public ModelAndView edit( HttpServletRequest request, HttpServletResponse response, 
+//			@RequestParam( "toolIds" ) String[] toolIds,
+//			@RequestParam( "domain" ) String domain)
+//	{
+//		ModelAndView mv = new ModelAndView("register");
+//		
+//		Lti2ProviderDomain provider = null;
+//		try {
+//			provider = _toolDAO.loadById(toolIds[0]);
+//		} catch (KeyNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//    	mv.addObject("provider", provider);
+//    	mv.addObject("actionType", "edit");
+//    	mv = buildModel(provider,mv);
+//    	
+//    	return mv; 
+//	}
+//	
+//	@RequestMapping( method = RequestMethod.POST, params = "actionType=approve" )
+//	public ModelAndView approve( HttpServletRequest request, HttpServletResponse response, 
+//			@RequestParam( "toolIds" ) String[] toolIds,
+//			@RequestParam( "domain" ) String domain )
+//	{
+//		ModelAndView mv = new ModelAndView("register");
+//		
+//		Lti2ProviderDomain provider = null;
+//		try {
+//			provider = _toolDAO.loadById(toolIds[0]);
+//		} catch (KeyNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//    	mv.addObject("provider", provider);
+//    	mv.addObject("actionType", "approve");
+//    	mv = buildModel(provider,mv);
+//    	
+//    	return mv; 
+//	}
+//	
+//	@RequestMapping( method = RequestMethod.POST, params = "actionType=exclude" )
+//	public ModelAndView exclude( HttpServletRequest request, HttpServletResponse response, 
+//			@RequestParam( "toolIds" ) String[] toolIds,
+//			@RequestParam( "domain" ) String domain )
+//	{
+//		ModelAndView mv = new ModelAndView("register");
+//		
+//		Lti2ProviderDomain provider = null;
+//		try {
+//			provider = _toolDAO.loadById(toolIds[0]);
+//		} catch (KeyNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//    	mv.addObject("provider", provider);
+//    	mv.addObject("actionType", "exclude");
+//    	mv = buildModel(provider,mv);
+//    	
+//    	return mv; 
+//	    
+//	}
+//	
+//	@RequestMapping( method = RequestMethod.POST, params = "actionType=delete" )
+//	public ModelAndView delete( HttpServletRequest request, HttpServletResponse response, 
+//			@RequestParam( "toolIds" ) String[] toolIds,
+//			@RequestParam( "domain" ) String domain )
+//	{
+//		ModelAndView mv = new ModelAndView("register");
+//		
+//		Lti2ProviderDomain provider = null;
+//		try {
+//			provider = _toolDAO.loadById(toolIds[0]);
+//		} catch (KeyNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//    	mv.addObject("provider", provider);
+//    	mv.addObject("actionType", "delete");
+//    	mv = buildModel(provider,mv);
+//    	
+//    	return mv; 
+//	    
+//	}
 	
-	@RequestMapping( "/approveDomain" )
-	public ModelAndView approve( HttpServletRequest request, HttpServletResponse response, 
-			@RequestParam( "toolIds" ) String[] toolIds,
-			@RequestParam( "domain" ) String domain )
-	{
-		ModelAndView mv = new ModelAndView("register");
-		
-		Lti2ProviderDomain provider = createNewTool();
-    	mv.addObject("provider", provider);
-    	mv.addObject("action", "register");
-    	mv = buildModel(provider,mv);
-    	
-    	return mv; 
-	}
 	
-	@RequestMapping( "/excludeDomain" )
-	public ModelAndView exclude( HttpServletRequest request, HttpServletResponse response, 
-			@RequestParam( "toolIds" ) String[] toolIds,
-			@RequestParam( "domain" ) String domain )
-	{
-		ModelAndView mv = new ModelAndView("register");
-		
-		Lti2ProviderDomain provider = createNewTool();
-    	mv.addObject("provider", provider);
-    	mv.addObject("action", "register");
-    	mv = buildModel(provider,mv);
-    	
-    	return mv; 
-	    
-	}
-	
-	@RequestMapping( "/deleteDomain" )
-	public ModelAndView delete( HttpServletRequest request, HttpServletResponse response, 
-			@RequestParam( "toolIds" ) String[] toolIds,
-			@RequestParam( "domain" ) String domain )
-	{
-		ModelAndView mv = new ModelAndView("register");
-		
-		Lti2ProviderDomain provider = createNewTool();
-    	mv.addObject("provider", provider);
-    	mv.addObject("action", "register");
-    	mv = buildModel(provider,mv);
-    	
-    	return mv; 
-	    
-	}
 	/*
 	Lti2PropertiesDAO propDAO = new Lti2PropertiesDAO();
 	Lti2ProviderDomain lti2Tool = new Lti2ProviderDomain();
@@ -163,54 +250,6 @@ public class Lti2RegistrationController {
 	}
 
 */
-
-	private void registerDomain(HttpServletRequest request) {
-		Lti2ProviderDomainDAO toolDAO = new Lti2ProviderDomainDAO();
-		Lti2ProviderDomain tool = new Lti2ProviderDomain();
-		
-		String toolId = "unknown";
-		
-		try {
-			toolId = request.getParameter("tool_id");
-		} catch (Exception e) {
-			toolId = "unknown";
-		}
-		
-		if(!toolId.isEmpty() && !toolId.equalsIgnoreCase("unknown")) {
-			try {
-				tool = toolDAO.loadById(toolId);
-			} catch (Exception knfe) {
-				System.out.println("Error loading Domain record for " + toolId + ": " + knfe.getLocalizedMessage() + "<br />");
-			}
-		}
-		
-		//set all prefs to incoming request parameter values
-		tool.setDomain(request.getParameter("domain"));
-		tool.enableDomain(Boolean.valueOf(request.getParameter("domainStatus")));
-		tool.setSecHostNames(request.getParameter("secondaryHostnames"));
-		tool.setDomainConfigGlobally(Boolean.valueOf(request.getParameter("defaultConfig")));
-		tool.setConsumerKey(request.getParameter("toolKey"));
-		tool.setSharedSecret(request.getParameter("toolSecret"));
-		tool.setCustomParams(request.getParameter("customParamaters"));
-		tool.enablePostGrades(Boolean.valueOf(request.getParameter("postGrades")));
-		tool.enableGetGrades(Boolean.valueOf(request.getParameter("getGrades")));
-		tool.enableToolSettings(Boolean.valueOf(request.getParameter("toolConfig")));
-		tool.setSendDataConfig(Integer.parseInt(request.getParameter("sendData")));
-		tool.enableSendName(Boolean.valueOf(request.getParameter("sendName")));
-		tool.enableSendRole(Boolean.valueOf(request.getParameter("sendRole")));
-		tool.enableSendEMail(Boolean.valueOf(request.getParameter("sendEmail")));
-		tool.enableSplashScreen(Boolean.valueOf(request.getParameter("userAck")));
-		tool.setSplashScreenMessage(request.getParameter("userAckMsgtext"));
-		
-		//save the prefs
-		try {
-			toolDAO.save(tool);
-		} catch (Exception ex) {
-			System.out.println("Error saving Tool");
-		}
-		
-	}
-
 	private Lti2ProviderDomain createNewTool() {
 
 		Lti2Properties props = new Lti2Properties();
@@ -245,6 +284,8 @@ public class Lti2RegistrationController {
 	}
 	
 	private ModelAndView buildModel(Lti2ProviderDomain tool, ModelAndView mv) {
+		String[] toolIds = { "unknown" };
+		mv.addObject(toolIds);
 		mv.addObject("domain",tool.getDomain());
 		mv.addObject("domain_status",tool.isDomainEnabled());
 		mv.addObject("sechostnames",tool.getSecHostNames());
@@ -265,5 +306,35 @@ public class Lti2RegistrationController {
 		mv.addObject("splashMessage", FormattedText.toFormattedText(tool.getSplashScreenMessage()));
 		
 		return mv;
+	}
+	
+private void saveTool(Lti2ProviderDomain tool, String domain, String domainStatus, String secondaryHostnames,
+							String defaultConfig, String toolKey, String toolSecret, String customParameters,
+							String postGrades, String getGrades, String toolConfig, String sendData, String sendName, 
+							String sendRole, String sendEmail, String userAck, String userAckMsgtext ) {
+		//set all prefs to incoming request parameter values
+		tool.setDomain(domain);
+		tool.enableDomain(Boolean.valueOf(domainStatus));
+		tool.setSecHostNames(secondaryHostnames);
+		tool.setDomainConfigGlobally(Boolean.valueOf(defaultConfig));
+		tool.setConsumerKey(toolKey);
+		tool.setSharedSecret(toolSecret);
+		tool.setCustomParams(customParameters);
+		tool.enablePostGrades(Boolean.valueOf(postGrades));
+		tool.enableGetGrades(Boolean.valueOf(getGrades));
+		tool.enableToolSettings(Boolean.valueOf(toolConfig));
+		tool.setSendDataConfig(Integer.parseInt(sendData));
+		tool.enableSendName(Boolean.valueOf(sendName));
+		tool.enableSendRole(Boolean.valueOf(sendRole));
+		tool.enableSendEMail(Boolean.valueOf(sendEmail));
+		tool.enableSplashScreen(Boolean.valueOf(userAck));
+		tool.setSplashScreenMessage(userAckMsgtext);
+		
+		//save the prefs
+		try {
+			_toolDAO.save(tool);
+		} catch (Exception ex) {
+			System.out.println("Error saving Tool");
+		}
 	}
 }
