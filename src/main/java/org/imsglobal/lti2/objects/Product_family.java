@@ -5,12 +5,16 @@ import org.imsglobal.lti2.LTI2Config;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.annotation.Generated;
+
 import org.codehaus.jackson.annotate.JsonAnyGetter;
 import org.codehaus.jackson.annotate.JsonAnySetter;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import bbdn.lti2.beans.Lti2Config;
 
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @Generated("com.googlecode.jsonschema2pojo")
@@ -26,7 +30,7 @@ public class Product_family {
     private Vendor vendor;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    public Product_family(LTI2Config cnf) {
+    public Product_family(Lti2Config cnf) {
         this.code = cnf.getProduct_family_product_code();
         this.vendor = new Vendor(cnf);
     }

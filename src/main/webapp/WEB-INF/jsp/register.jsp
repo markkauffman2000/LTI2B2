@@ -8,11 +8,8 @@
 				 blackboard.persist.KeyNotFoundException,
 				 blackboard.platform.plugin.PlugInUtil,
 				 blackboard.platform.servlet.InlineReceiptUtil,
-				 blackboard.servlet.tags.ngui.datacollection.DataElementTag,
-				 bbdn.lti2.BBDNConstants,
-				 bbdn.lti2.dao.Lti2Properties,
-				 bbdn.lti2.dao.Lti2PropertiesDAO,
-				 bbdn.lti2.dao.Lti2ProviderDomain,
+				 blackboard.servlet.tags.ngui.datacollection.DataElementTag,bbdn.lti2.util.BBDNConstants,bbdn.lti2.beans.Lti2Properties,
+				 bbdn.lti2.dao.Lti2PropertiesDAO,bbdn.lti2.beans.Lti2ProviderDomain,
 				 bbdn.lti2.dao.Lti2ProviderDomainDAO" %>
 
 <%@ taglib uri="/bbNG" prefix="bbNG"%>

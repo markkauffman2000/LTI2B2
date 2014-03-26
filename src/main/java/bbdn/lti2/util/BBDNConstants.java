@@ -14,7 +14,7 @@
  * permissions and limitations under the License.
  * 
  */
-package bbdn.lti2;
+package bbdn.lti2.util;
 
 public class BBDNConstants {
 	/**
@@ -74,4 +74,24 @@ public class BBDNConstants {
 	 */
 	public static final String BBDN_USER_DATA_ANY = "2";
 
+	/**
+	 * BBDN_TOOL_PENDING=0
+	 * <p>
+	 * Registration requested from Learn, awaiting response from Tool Provider
+	 */
+	public static final String BBDN_TOOL_PENDING = "0";
+	
+	/**
+	 * BBDN_TOOL_APPROVEDL=1
+	 * <p>
+	 * Tool Provider Registered and Approved in Learn
+	 */
+	public static final String BBDN_TOOL_APPROVED = "1";
+	
+	/**
+	 * BBDN_TOOL_EXCLUDED=2
+	 * <p>
+	 * Tool Provider Registered and Excluded in Learn
+	 */
+	public static final String BBDN_TOOL_EXCLUDED = "2";
 }

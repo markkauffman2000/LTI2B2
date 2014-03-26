@@ -1,4 +1,4 @@
-package bbdn.lti2.dao;
+package bbdn.lti2.beans;
 
 import blackboard.data.AbstractIdentifiable;
 import blackboard.persist.DataType;
@@ -21,8 +21,8 @@ public class Lti2ProviderDomain  extends AbstractIdentifiable {
 		   @Column(value = "tool_domain")
 		   private String tool_domain;
 		   
-		   @Column(value = "tool_status_ind")
-		   private String tool_status_ind;
+		   @Column(value = "tool_status")
+		   private int tool_status;
 		   
 		   @Column(value = "tool_global_ind")
 		   private String tool_global_ind;
@@ -90,23 +90,15 @@ public class Lti2ProviderDomain  extends AbstractIdentifiable {
 		/**
 		 * @return the tool_status_ind
 		 */
-		public Boolean isDomainEnabled() {
-			if ( this.tool_status_ind.equals("Y") ) {
-				return true;
-			} else {
-				return false;
-			}
+		public int getDomainStatus() {
+			return this.tool_status;
 		}
 
 		/**
 		 * @param flag : If true, set tool_status_ind to 'Y', else 'N'
 		 */
-		public void enableDomain(Boolean flag) {
-			if (flag) {
-				this.tool_status_ind = "Y";
-			} else {
-				this.tool_status_ind = "N";
-			}
+		public void setDomainStatus(int domainStatus) {
+			this.tool_status = domainStatus;
 			
 		}
 		

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import bbdn.lti2.dao.Lti2ProviderDomain;
+import bbdn.lti2.beans.Lti2ProviderDomain;
 import bbdn.lti2.dao.Lti2ProviderDomainDAO;
 import blackboard.platform.plugin.PlugInUtil;
 import blackboard.platform.spring.beans.annotations.UserAuthorization;

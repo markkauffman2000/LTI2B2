@@ -10,11 +10,14 @@ import java.util.Map;
 import java.util.Collections;
 
 import javax.annotation.Generated;
+
 import org.codehaus.jackson.annotate.JsonAnyGetter;
 import org.codehaus.jackson.annotate.JsonAnySetter;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import bbdn.lti2.beans.Lti2Config;
 
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @Generated("com.googlecode.jsonschema2pojo")
@@ -54,7 +57,7 @@ public class ToolConsumer {
     } ;
 
     // Constructor
-    public ToolConsumer(String guid, String tcp, LTI2Config cnf) {
+    public ToolConsumer(String guid, String tcp, Lti2Config cnf) {
         this._context.add("http://purl.imsglobal.org/ctx/lti/v2/ToolConsumerProfile");
 		NamedContext nc = new NamedContext();
 		nc.setAdditionalProperties("tcp", tcp);

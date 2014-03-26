@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import bbdn.lti2.dao.Lti2Properties;
+import bbdn.lti2.beans.Lti2Properties;
 import bbdn.lti2.dao.Lti2PropertiesDAO;
 import blackboard.base.FormattedText;
-import blackboard.platform.plugin.PlugInUtil;
 
 @Controller
 public class Lti2SettingsController {

@@ -4,7 +4,6 @@ import java.io.IOException;
 //import java.util.List;
 
 
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -19,7 +18,6 @@ import bbdn.lti2.beans.Lti2Properties;
 import bbdn.lti2.beans.Lti2ProviderDomain;
 import bbdn.lti2.dao.Lti2PropertiesDAO;
 import bbdn.lti2.dao.Lti2ProviderDomainDAO;
-import bbdn.lti2.util.BBDNConstants;
 import blackboard.base.FormattedText;
 //import blackboard.data.ReceiptOptions;
 //import blackboard.persist.KeyNotFoundException;
@@ -29,7 +27,7 @@ import blackboard.base.FormattedText;
 //import blackboard.platform.servlet.InlineReceiptUtil;
 
 @Controller
-public class Lti2RegistrationController {
+public class Lti2ConfigController {
 	
 	@Autowired
 	private Lti2PropertiesDAO _propDAO;
@@ -104,7 +102,7 @@ public class Lti2RegistrationController {
 		// Temp for testing. This should call the Lti2 Registration work flow and eventually serve the registration form back 
 		// with the ability for the admin to approve the domain and add in the resulting key and secret from the registration.
 		try {
-			response.sendRedirect("lti2operation/register?domain=" + domain);
+			response.sendRedirect("index");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -266,7 +264,7 @@ public class Lti2RegistrationController {
 		Lti2ProviderDomain tool = new Lti2ProviderDomain();
 		
 		tool.setDomain("");
-		tool.setDomainStatus(Integer.parseInt(BBDNConstants.BBDN_TOOL_PENDING));
+		tool.enableDomain(false);
 		tool.setSecHostNames("");
 		tool.setDomainConfigGlobally(true);
 		tool.setConsumerKey("");
@@ -290,7 +288,7 @@ public class Lti2RegistrationController {
 		String[] toolIds = { "unknown" };
 		mv.addObject(toolIds);
 		mv.addObject("domain",tool.getDomain());
-		mv.addObject("domain_status",tool.getDomainStatus());
+		mv.addObject("domain_status",tool.isDomainEnabled());
 		mv.addObject("sechostnames",tool.getSecHostNames());
 		mv.addObject("globalLinks", tool.isDomainConfiguredGlobally());
 		mv.addObject("key", tool.getConsumerKey());
@@ -317,7 +315,7 @@ private void saveTool(Lti2ProviderDomain tool, String domain, String domainStatu
 							String sendRole, String sendEmail, String userAck, String userAckMsgtext ) {
 		//set all prefs to incoming request parameter values
 		tool.setDomain(domain);
-		tool.setDomainStatus(Integer.parseInt(domainStatus));
+		tool.enableDomain(Boolean.valueOf(domainStatus));
 		tool.setSecHostNames(secondaryHostnames);
 		tool.setDomainConfigGlobally(Boolean.valueOf(defaultConfig));
 		tool.setConsumerKey(toolKey);

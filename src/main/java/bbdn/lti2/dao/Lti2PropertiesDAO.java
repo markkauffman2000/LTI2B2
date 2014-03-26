@@ -10,6 +10,7 @@ package bbdn.lti2.dao;
 
 import java.util.List;
 
+import bbdn.lti2.beans.Lti2Properties;
 import blackboard.persist.KeyNotFoundException;
 import blackboard.persist.dao.impl.SimpleDAO;
 import blackboard.persist.impl.SimpleSelectQuery;

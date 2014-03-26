@@ -3,17 +3,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%@ page
-	import="bbdn.lti2.dao.Lti2ProviderDomain,
-				 bbdn.lti2.dao.Lti2ProviderDomainDAO,
-				 java.util.List,
-				 blackboard.platform.plugin.PlugInUtil,
-				 blackboard.persist.Id,
-				 blackboard.util.UrlUtil"%>
+	import="bbdn.lti2.beans.Lti2ProviderDomain,bbdn.lti2.dao.Lti2ProviderDomainDAO,java.util.List,blackboard.platform.plugin.PlugInUtil,blackboard.persist.Id,blackboard.util.UrlUtil"%>
 
 <%@ taglib uri="/bbNG" prefix="bbNG"%>
 
-<bbNG:genericPage title="LTI 2.0 Tool Providers" ctxId="ctx"
-	entitlement="system.admin.VIEW" navItem="bbdn-lti2-app-nav-1">
+blackboard.platform.context.Context ctx = (blackboard.platform.context.Context) pageContext.getAttribute("ctx");
 	
 	<bbNG:jsBlock>
 		<script type="text/javascript">
@@ -85,10 +79,7 @@
 	
 	<bbNG:form id="domainManager" action="register" isSecure="${ true }" nonceId="/registerDomain">
 	<bbNG:hiddenElement name="actionType" value="register"/> 
-		<bbNG:inventoryList className="bbdn.lti2.dao.Lti2ProviderDomain"
-	                        collection="${providers}" objectVar="provider"
-	                        description="LTI 2.0 Tool Providers" initialSortCol="domain"
-	                        url="" emptyMsg="No LTI 2.0 Tools registered at this time.">	      
+		n provider = Lti2ProviderDomainn) pageContext.getAttribute("provider");	      
 			
 			<bbNG:listActionBar>
 				<bbNG:listActionItem url="javascript:register.onApprove();" title="Approve"

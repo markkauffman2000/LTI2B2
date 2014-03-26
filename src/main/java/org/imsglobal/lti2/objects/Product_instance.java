@@ -1,16 +1,18 @@
 
 package org.imsglobal.lti2.objects;
 
-import org.imsglobal.lti2.LTI2Config;
-
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.annotation.Generated;
+
 import org.codehaus.jackson.annotate.JsonAnyGetter;
 import org.codehaus.jackson.annotate.JsonAnySetter;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import bbdn.lti2.beans.Lti2Config;
 
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @Generated("com.googlecode.jsonschema2pojo")
@@ -33,7 +35,7 @@ public class Product_instance {
     private Support support;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    public Product_instance(LTI2Config cnf) {
+    public Product_instance(Lti2Config cnf) {
         this.guid = cnf.getGuid();
         this.product_info = new Product_info(cnf);
         this.service_owner = new Service_owner(cnf);

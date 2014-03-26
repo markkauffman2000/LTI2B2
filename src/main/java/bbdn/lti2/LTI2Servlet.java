@@ -16,11 +16,13 @@
  * Author: Charles Severance <csev@umich.edu>
  */
 
-package org.imsglobal.lti2;
+package bbdn.lti2;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -39,6 +41,8 @@ import org.codehaus.jackson.map.ObjectWriter;
 import org.imsglobal.basiclti.BasicLTIConstants;
 import org.imsglobal.basiclti.BasicLTIUtil;
 import org.imsglobal.json.IMSJSONRequest;
+import org.imsglobal.lti2.LTI2SampleData;
+import org.imsglobal.lti2.LTI2Util;
 import org.imsglobal.lti2.objects.Service_offered;
 import org.imsglobal.lti2.objects.StandardServices;
 import org.imsglobal.lti2.objects.ToolConsumer;
@@ -47,36 +51,9 @@ import org.json.simple.JSONObject;
 import org.json.simple.JSONValue;
 
 import bbdn.lti2.beans.Lti2Config;
+import bbdn.lti2.util.LTI2Constants;
 
 /**
- * Notes:
- * 
- * This is a sample "Hello World" servlet for LTI2.  It is a simple UI - mostly 
- * intended to exercise the APIs and show the way for servlet-based LTI2 code.
- * 
- * Here are the web.xml entries:
- *
- *  <servlet>
- *    <servlet-name>SampleServlet</servlet-name>
- *    <servlet-class>org.imsglobal.lti2.LTI2Servlet</servlet-class>
- *  </servlet>
- *  <servlet-mapping>
- *    <servlet-name>SampleServlet</servlet-name>
- *    <url-pattern>/sample/*</url-pattern>
- *  </servlet-mapping>
- *
- *  The navigate to:
- *  http://localhost/testservlet/sample/register
- *  
- *  or for Blackboard Learn:
- *  
- *  http://localhost/webapps/bbdn-bbdn-lti2-prototype-BBLEARN/testservlet/sample/register
- * 
- *  A PHP endpoint is available at:
- * 
- *  https://source.sakaiproject.org/svn/basiclti/trunk/basiclti-docs/resources/docs/sakai-api-test
- * 
- *  The tp.php script is the Tool Provider registration endpoint in the PHP code
  * 
  */
 
@@ -100,13 +77,7 @@ public class LTI2Servlet extends HttpServlet {
 	private static final String EMPTY_JSON_OBJECT = "{\n}\n";
 
 	private static final String APPLICATION_JSON = "application/json";
-
-	// Normally these would be in a database
-	private static String TEST_KEY = "42";
-	private static String TEST_SECRET = "zaphod";
-
-	// Pretending to be a database row :)
-	private static Map<String, String> PERSIST = new TreeMap<String, String> ();
+	private static final Hashtable<Object, Object> PERSIST = null;
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
@@ -187,7 +158,7 @@ public class LTI2Servlet extends HttpServlet {
 		doErrorJSON(request, response, null, "Unknown request="+uri, null);
 	}
 
-	protected void doRegister(HttpServletRequest request, HttpServletResponse response)
+	protected void doRegister(HttpServletRequest request, HttpServletResponse response) throws IOException
 	{
 		// Reset our database
 		PERSIST.clear();
@@ -199,21 +170,20 @@ public class LTI2Servlet extends HttpServlet {
 			Properties ltiProps = new Properties();
 
 			ltiProps.setProperty(BasicLTIConstants.LTI_VERSION, LTI2Constants.LTI2_VERSION_STRING);
-			ltiProps.setProperty(LTI2Constants.REG_KEY,TEST_KEY);
-			ltiProps.setProperty(LTI2Constants.REG_PASSWORD,TEST_SECRET);
+			ltiProps.setProperty(LTI2Constants.REG_KEY,"42");
+			ltiProps.setProperty(LTI2Constants.REG_PASSWORD,"zaphod");
 			ltiProps.setProperty(BasicLTIUtil.BASICLTI_SUBMIT, "Press to Launch External Tool");
 			ltiProps.setProperty(BasicLTIConstants.LTI_MESSAGE_TYPE, BasicLTIConstants.LTI_MESSAGE_TYPE_TOOLPROXYREGISTRATIONREQUEST);
 
 			String serverUrl = getServiceURL(request);
-			ltiProps.setProperty(LTI2Constants.TC_PROFILE_URL,serverUrl + SVC_tc_profile + "/" + TEST_KEY);
+			ltiProps.setProperty(LTI2Constants.TC_PROFILE_URL,serverUrl + SVC_tc_profile + "/" + "42");
 			ltiProps.setProperty(BasicLTIConstants.LAUNCH_PRESENTATION_RETURN_URL, serverUrl + "launch");
 			System.out.println("ltiProps="+ltiProps);
 
 			boolean dodebug = true;
 			output = BasicLTIUtil.postLaunchHTML(ltiProps, launch_url, dodebug);
 		} else {
-			output = "<form>Register URL:<br/><input type=\"text\" name=\"launch_url\" size=\"80\"\n" + 
-				"value=\"http://www.bboogle.com/sakai-api-test/tp.php\"><input type=\"submit\">\n";
+			response.sendRedirect("register");
 		}
 
 		try {
@@ -232,14 +202,14 @@ public class LTI2Servlet extends HttpServlet {
 	protected void doLaunch(HttpServletRequest request, HttpServletResponse response)
 	{
 		
-		String profile = PERSIST.get("profile");
+		Object profile = PERSIST.get("profile");
 		response.setContentType("text/html");
 
 		String output = null;
 		if ( profile == null ) {
 			output = "Missing profile";
 		} else {
-	        JSONObject providerProfile = (JSONObject) JSONValue.parse(profile);
+	        JSONObject providerProfile = (JSONObject) JSONValue.parse((Reader) profile);
 
 			List<Properties> profileTools = new ArrayList<Properties> ();
 	        Properties info = new Properties();
@@ -266,7 +236,7 @@ public class LTI2Servlet extends HttpServlet {
 			lti2subst.setProperty("ToolProxyBinding.custom.url", settings_url + LTI2Util.SCOPE_ToolProxyBinding + "/" 
 					+ ltiProps.getProperty(BasicLTIConstants.CONTEXT_ID));
 			lti2subst.setProperty("ToolProxy.custom.url", settings_url + LTI2Util.SCOPE_ToolProxy + "/" 
-					+ TEST_KEY);
+					+ "42");
 			lti2subst.setProperty("Result.url", getServiceURL(request) + SVC_Result + "/"
 					+ ltiProps.getProperty(BasicLTIConstants.RESOURCE_LINK_ID));
 
@@ -279,7 +249,7 @@ public class LTI2Servlet extends HttpServlet {
 			LTI2Util.addCustomToLaunch(ltiProps, custom);
 
 			ltiProps = BasicLTIUtil.signProperties(ltiProps, launch, "POST",
-                TEST_KEY, shared_secret, null, null, null);
+                "42", shared_secret, null, null, null);
 
 			boolean dodebug = true;
 			output = BasicLTIUtil.postLaunchHTML(ltiProps, launch, dodebug);
@@ -355,13 +325,13 @@ public class LTI2Servlet extends HttpServlet {
 			String profile_id) throws java.io.IOException
 	{
 		// Normally we would look up the deployment descriptor
-		if ( ! TEST_KEY.equals(profile_id) ) {
+		if ( ! "42".equals(profile_id) ) {
 			response.setStatus(HttpServletResponse.SC_NOT_FOUND); 
 			return;
 		}
 
-		String key = TEST_KEY;
-		String secret = TEST_SECRET;
+		String key = "42";
+		String secret = "zaphod";
 
 		IMSJSONRequest jsonRequest = new IMSJSONRequest(request);
 
@@ -466,8 +436,8 @@ public class LTI2Servlet extends HttpServlet {
 		IMSJSONRequest jsonRequest = null;
 		String retval = null;
 		if ( "GET".equals(request.getMethod()) ) { 
-			String grade = PERSIST.get("grade");
-			String comment = PERSIST.get("comment");
+			String grade = (String) PERSIST.get("grade");
+			String comment = (String) PERSIST.get("comment");
 
 			Map jsonResponse = new TreeMap();
 			Map resultScore = new TreeMap();
@@ -545,8 +515,8 @@ System.out.println("accept="+acceptHdr+" ac="+acceptComplex);
 			}
 		}
 
-		String consumer_key = TEST_KEY;
-		String profile = PERSIST.get("profile");
+		String consumer_key = "42";
+		String profile = (String) PERSIST.get("profile");
 		JSONObject providerProfile = (JSONObject) JSONValue.parse(profile);
 		JSONObject security_contract = (JSONObject) providerProfile.get(LTI2Constants.SECURITY_CONTRACT);
 		String oauth_secret = (String) security_contract.get(LTI2Constants.SHARED_SECRET);
@@ -566,9 +536,9 @@ System.out.println("accept="+acceptHdr+" ac="+acceptComplex);
 		String link_url = settingsUrl + "/" + LTI2Util.SCOPE_LtiLink + "/" + "TBD";
 
 		// Load and parse the old settings...
-		JSONObject link_settings = LTI2Util.parseSettings(PERSIST.get(LTI2Util.SCOPE_LtiLink));
-		JSONObject binding_settings = LTI2Util.parseSettings(PERSIST.get(LTI2Util.SCOPE_ToolProxyBinding));
-		JSONObject proxy_settings = LTI2Util.parseSettings(PERSIST.get(LTI2Util.SCOPE_ToolProxy));
+		JSONObject link_settings = LTI2Util.parseSettings((String) PERSIST.get(LTI2Util.SCOPE_LtiLink));
+		JSONObject binding_settings = LTI2Util.parseSettings((String) PERSIST.get(LTI2Util.SCOPE_ToolProxyBinding));
+		JSONObject proxy_settings = LTI2Util.parseSettings((String) PERSIST.get(LTI2Util.SCOPE_ToolProxy));
 
 		// For a GET request we depend on LTI2Util to do the GET logic
 		if ( "GET".equals(request.getMethod()) ) { 

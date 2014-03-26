@@ -4,12 +4,16 @@ import org.imsglobal.lti2.LTI2Config;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.annotation.Generated;
+
 import org.codehaus.jackson.annotate.JsonAnyGetter;
 import org.codehaus.jackson.annotate.JsonAnySetter;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import bbdn.lti2.beans.Lti2Config;
 
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @Generated("com.googlecode.jsonschema2pojo")
@@ -34,7 +38,7 @@ public class Service_owner {
     private Support support;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    public Service_owner(LTI2Config cnf) {
+    public Service_owner(Lti2Config cnf) {
         this._id = cnf.getService_owner_id();
         this.service_owner_name = new Service_owner_name(cnf.getService_owner_owner_name());
         this.description = new Description(cnf.getService_owner_description());

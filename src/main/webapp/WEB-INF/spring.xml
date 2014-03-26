@@ -40,9 +40,9 @@
 	<property name="dataSource" ref="hibernateDataSource" />
 	<property name="annotatedClasses">
 		<list>
-			<value>bbdn.lti2.dao.Lti2Link</value>
-			<value>bbdn.lti2.dao.Lti2Properties</value>
-			<value>bbdn.lti2.dao.Lti2ProviderDomain</value>
+			<value>bbdn.lti2.beans.Lti2Link</value>
+			<value>bbdn.lti2.beans.Lti2Properties</value>
+			<value>bbdn.lti2.beans.Lti2ProviderDomain</value>
 		</list>
 	</property>
   </bean>

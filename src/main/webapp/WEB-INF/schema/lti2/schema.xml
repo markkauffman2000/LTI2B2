@@ -98,6 +98,56 @@
   
   </table>
   
+  <!-- Remember, all custom schema elements must start with your vendor ID. -->
+  <table name="bbdn_lti2_sc">
+  	<comment>This table stores the service configuration for the LTI 2.0 Building Block</comment>
+    
+    <column name="pk1" data-type="int" nullable="false" identity="true" comment="This is the surrogate primary key for the table." />
+    
+    <column name="sc_guid" data-type="VARCHAR(256)" nullable="false" comment="Unique identifier for Tool Consumer"/>
+    
+    <column name="sc_support_email" data-type="VARCHAR(256)" nullable="false" comment="System Support contact information"/>
+	
+	<column name="sc_owner_id"  data-type="VARCHAR(256)" nullable="false" comment="Id for the system owner"/>
+	
+	<column name="sc_owner_name" data-type="VARCHAR(256)" nullable="false" comment="Name of the system owner"/>
+	
+	<column name="sc_owner_description"  data-type="VARCHAR(256)" nullable="false" comment="Description of the system owner"/>
+	
+	<column name="sc_owner_email" data-type="VARCHAR(256)" nullable="false" comment="Contact information for the system owner"/>
+	
+	<column name="sc_provider_id"  data-type="VARCHAR(256)" nullable="false" comment="Id for the hosting provider"/>
+	
+	<column name="sc_provider_name" data-type="VARCHAR(256)" nullable="false" comment="Name of the hosting provider"/>
+	
+	<column name="sc_provider_description"  data-type="VARCHAR(256)" nullable="false" comment="Description of the hosting provider"/>
+	
+	<column name="sc_provider_email" data-type="VARCHAR(256)" nullable="false" comment="Contact information for the hosting provider"/>
+	
+	<column name="sc_product_code" data-type="VARCHAR(256)" nullable="false" comment="Product Code for the Tool Consumer product"/>
+	
+	<column name="sc_vendor_code" data-type="VARCHAR(256)" nullable="false" comment="Unique identifier for Tool Consumer vendor"/>
+	
+	<column name="sc_vendor_name" data-type="VARCHAR(256)" nullable="false" comment="Name of the Tool Consumer vendor"/>
+	
+	<column name="sc_vendor_description" data-type="VARCHAR(256)" nullable="false" comment="Description of the Tool Consumer vendor"/>
+	
+	<column name="sc_vendor_url" data-type="VARCHAR(256)" nullable="false" comment="URL for the Tool Consumer vendor"/>
+	
+	<column name="sc_vendor_email" data-type="VARCHAR(256)" nullable="false" comment="Contact information for the Tool Consumer Vendor"/>
+	
+	<column name="sc_product_name" data-type="VARCHAR(256)" nullable="false" comment="Name of Tool Consumer product"/>
+	
+	<column name="sc_product_version" data-type="VARCHAR(256)" nullable="false" comment="Version of the Tool Consumer product"/>
+	
+	<column name="sc_product_description" data-type="VARCHAR(256)" nullable="false" comment="Description of the Tool Consumer specific versioning for this product"/>
+    
+    <primary-key name="bbdn_lti2_sc_pk" comment="This is the name of primary key constraint on column settings_id.">
+      <columnref name="pk1" />
+    </primary-key>
+  
+  </table>
+  
   <table name="bbdn_lti2_tools">
   	<comment>This table contains the settings for each individual tool provider domain</comment>
   	
@@ -105,10 +155,11 @@
     
     <column name="tool_domain" data-type="VARCHAR(256)" nullable="false" comment="Base domain for tool provider" />
     
-    <column name="tool_status_ind" data-type="CHAR(1)" nullable="false" comment="If Y, the tool is approved, if N, the tool is excluded" >
+    <column name="tool_status" data-type="int" nullable="false" comment="0 = pending, 1 = approved, 2 = excluded" >
     	<value-constraint name="bbdn_tool_status_i1">
-		    <accepted-value value="Y"/>
-		    <accepted-value value="N"/>
+		    <accepted-value value="0"/>
+		    <accepted-value value="1"/>
+		    <accepted-value value="2"/>
 		</value-constraint>
 	</column>
 		

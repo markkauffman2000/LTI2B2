@@ -1,4 +1,4 @@
-package bbdn.lti2.dao;
+package bbdn.lti2.beans;
 
 import blackboard.data.AbstractIdentifiable;
 import blackboard.persist.DataType;

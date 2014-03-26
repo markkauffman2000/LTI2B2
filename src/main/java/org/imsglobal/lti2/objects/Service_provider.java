@@ -5,12 +5,16 @@ import org.imsglobal.lti2.LTI2Config;
 
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.annotation.Generated;
+
 import org.codehaus.jackson.annotate.JsonAnyGetter;
 import org.codehaus.jackson.annotate.JsonAnySetter;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import bbdn.lti2.beans.Lti2Config;
 
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 @Generated("com.googlecode.jsonschema2pojo")
@@ -35,7 +39,7 @@ public class Service_provider {
     private Support support;
     private Map<String, Object> additionalProperties = new HashMap<String, Object>();
 
-    public Service_provider(LTI2Config cnf) {
+    public Service_provider(Lti2Config cnf) {
         this._id = cnf.getService_provider_id();
         this.service_provider_name = new Service_provider_name(cnf.getService_provider_provider_name());
         this.description = new Description(cnf.getService_provider_description());

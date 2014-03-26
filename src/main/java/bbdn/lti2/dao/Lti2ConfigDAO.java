@@ -10,28 +10,28 @@ package bbdn.lti2.dao;
 
 import java.util.List;
 
-import bbdn.lti2.beans.Lti2Link;
+import bbdn.lti2.beans.Lti2Config;
 import blackboard.persist.KeyNotFoundException;
 import blackboard.persist.dao.impl.SimpleDAO;
 import blackboard.persist.impl.SimpleSelectQuery;
 import blackboard.util.StringUtil;
 
-public class Lti2LinkDAO extends SimpleDAO<Lti2Link>
+public class Lti2ConfigDAO extends SimpleDAO<Lti2Config>
 {
 
-	public Lti2LinkDAO() {
-		super(Lti2Link.class);
+	public Lti2ConfigDAO() {
+		super(Lti2Config.class);
 	}
 
-	public Lti2LinkDAO(Class<Lti2Link> cls) {
+	public Lti2ConfigDAO(Class<Lti2Config> cls) {
 		super(cls);
 	}
 
-	public List<Lti2Link> loadAll() {
+	public List<Lti2Config> loadAll() {
 		return getDAOSupport().loadAll();
 	}
 
-	public List<Lti2Link> searchByCourseBatchUid(String courseBatchUid) 
+	public List<Lti2Config> searchByCourseBatchUid(String courseBatchUid) 
 			throws KeyNotFoundException {
 		if (!StringUtil.isEmpty(courseBatchUid)) {
 			SimpleSelectQuery query = new SimpleSelectQuery(getDAOSupport().getMap());
@@ -42,34 +42,34 @@ public class Lti2LinkDAO extends SimpleDAO<Lti2Link>
 		return null;  
 	} 
 	
-	public Lti2Link load() {
-        List<Lti2Link> link;
+	public Lti2Config load() {
+        List<Lti2Config> link;
         link = getDAOSupport().loadAll();
         if(link!=null&&!link.isEmpty())
         return link.get(0);
         else return null;
     } 
     
-    public void save(Lti2Link link) {
-        System.out.println(link);        
+    public void save(Lti2Config config) {
+        System.out.println(config);        
                 
-        getDAOSupport().persist(link);
+        getDAOSupport().persist(config);
     }
     
     public boolean isInstalled(){
         //System.out.print("\nisInstalled called\n");
-        List<Lti2Link> link = null;
-        link = getDAOSupport().loadAll();
-        if (link.size() > 0) {
+        List<Lti2Config> config = null;
+        config = getDAOSupport().loadAll();
+        if (config.size() > 0) {
             return true;
         }
         return false;
     }
     
     public void writeDefaults() {
-    	Lti2Link link = new Lti2Link();
+    	Lti2Config config = new Lti2Config();
         
-        getDAOSupport().persist(link);
+        getDAOSupport().persist(config);
         
     }
 }

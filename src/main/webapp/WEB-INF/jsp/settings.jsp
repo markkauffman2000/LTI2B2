@@ -6,9 +6,7 @@
 				 javax.servlet.http.HttpServletRequest, 
 				 blackboard.servlet.tags.ngui.datacollection.DataElementTag,
 				 blackboard.base.FormattedText,
-				 blackboard.platform.plugin.PlugInUtil,
-				 bbdn.lti2.BBDNConstants,
-				 bbdn.lti2.dao.Lti2Properties,
+				 blackboard.platform.plugin.PlugInUtil,bbdn.lti2.util.BBDNConstants,bbdn.lti2.beans.Lti2Properties,
 				 bbdn.lti2.dao.Lti2PropertiesDAO" 
 %>
 

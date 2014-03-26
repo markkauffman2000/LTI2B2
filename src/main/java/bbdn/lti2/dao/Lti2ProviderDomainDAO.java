@@ -10,6 +10,7 @@ package bbdn.lti2.dao;
 
 import java.util.List;
 
+import bbdn.lti2.beans.Lti2ProviderDomain;
 import blackboard.persist.KeyNotFoundException;
 import blackboard.persist.dao.impl.SimpleDAO;
 import blackboard.persist.impl.SimpleSelectQuery;
@@ -47,6 +48,17 @@ public class Lti2ProviderDomainDAO extends SimpleDAO<Lti2ProviderDomain>
 			SimpleSelectQuery query = new SimpleSelectQuery(getDAOSupport().getMap());
 			//Change column name to whatever the name is in the bean
 			query.addWhere("tool_domain", domain);
+			return getDAOSupport().load(query);
+		}
+		return null;  
+	}
+	
+	public Lti2ProviderDomain loadByKey(String key) 
+			throws KeyNotFoundException {
+		if (!StringUtil.isEmpty(key)) {
+			SimpleSelectQuery query = new SimpleSelectQuery(getDAOSupport().getMap());
+			//Change column name to whatever the name is in the bean
+			query.addWhere("tool_key", key);
 			return getDAOSupport().load(query);
 		}
 		return null;  
