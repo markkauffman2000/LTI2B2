@@ -3,12 +3,15 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <%@ page
-	import="bbdn.lti2.beans.Lti2ProviderDomain,bbdn.lti2.dao.Lti2ProviderDomainDAO,java.util.List,blackboard.platform.plugin.PlugInUtil,blackboard.persist.Id,blackboard.util.UrlUtil"%>
+	import="bbdn.lti2.beans.Lti2ProviderDomain,
+	        bbdn.lti2.dao.Lti2ProviderDomainDAO,
+	        java.util.List,
+	        blackboard.platform.plugin.PlugInUtil,
+	        blackboard.persist.Id,
+	        blackboard.util.UrlUtil" %>
 
 <%@ taglib uri="/bbNG" prefix="bbNG"%>
-
-blackboard.platform.context.Context ctx = (blackboard.platform.context.Context) pageContext.getAttribute("ctx");
-	
+<<bbNG:genericPage>
 	<bbNG:jsBlock>
 		<script type="text/javascript">
 			var register =
@@ -77,9 +80,12 @@ blackboard.platform.context.Context ctx = (blackboard.platform.context.Context) 
 		</bbNG:actionControlBar>
 	</bbNG:pageHeader>
 	
-	<bbNG:form id="domainManager" action="register" isSecure="${ true }" nonceId="/registerDomain">
+	<bbNG:form id="domainManager" action="register" isSecure="${ true }" nonceId="/createDomain">
 	<bbNG:hiddenElement name="actionType" value="register"/> 
-		n provider = Lti2ProviderDomainn) pageContext.getAttribute("provider");	      
+		<bbNG:inventoryList className="bbdn.lti2.beans.Lti2ProviderDomain"
+	                        collection="${providers}" objectVar="provider"
+	                        description="LTI 2.0 Tool Providers" initialSortCol="domain"
+	                        url="" emptyMsg="No LTI 2.0 Tools registered at this time.">     
 			
 			<bbNG:listActionBar>
 				<bbNG:listActionItem url="javascript:register.onApprove();" title="Approve"
@@ -104,7 +110,7 @@ blackboard.platform.context.Context ctx = (blackboard.platform.context.Context) 
 	
 			<bbNG:listElement name="status" label="Status">
 				
-				<%=Boolean.toString(provider.isDomainEnabled())%>
+				<%=Integer.toString(provider.getDomainStatus())%>
 			</bbNG:listElement>
 	
 			<bbNG:listElement name="sendUserData" label="Sends User Data">

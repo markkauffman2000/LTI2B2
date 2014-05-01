@@ -4,6 +4,7 @@ import java.io.IOException;
 //import java.util.List;
 
 
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,6 +19,7 @@ import bbdn.lti2.beans.Lti2Properties;
 import bbdn.lti2.beans.Lti2ProviderDomain;
 import bbdn.lti2.dao.Lti2PropertiesDAO;
 import bbdn.lti2.dao.Lti2ProviderDomainDAO;
+import bbdn.lti2.util.BBDNConstants;
 import blackboard.base.FormattedText;
 //import blackboard.data.ReceiptOptions;
 //import blackboard.persist.KeyNotFoundException;
@@ -48,7 +50,7 @@ public class Lti2ConfigController {
     	return mv;   
 	}
 	
-	@RequestMapping( "/saveDomain" )
+	@RequestMapping( "/saveRegistration" )
 	public void save( HttpServletRequest request, HttpServletResponse response, 
 						@RequestParam( "actionType" ) String actionType,
 						@RequestParam( "toolIds" ) String[] toolIds,
@@ -264,7 +266,7 @@ public class Lti2ConfigController {
 		Lti2ProviderDomain tool = new Lti2ProviderDomain();
 		
 		tool.setDomain("");
-		tool.enableDomain(false);
+		tool.setDomainStatus(Integer.parseInt(BBDNConstants.BBDN_TOOL_PENDING));
 		tool.setSecHostNames("");
 		tool.setDomainConfigGlobally(true);
 		tool.setConsumerKey("");
@@ -288,7 +290,7 @@ public class Lti2ConfigController {
 		String[] toolIds = { "unknown" };
 		mv.addObject(toolIds);
 		mv.addObject("domain",tool.getDomain());
-		mv.addObject("domain_status",tool.isDomainEnabled());
+		mv.addObject("domain_status",Integer.toString(tool.getDomainStatus()));
 		mv.addObject("sechostnames",tool.getSecHostNames());
 		mv.addObject("globalLinks", tool.isDomainConfiguredGlobally());
 		mv.addObject("key", tool.getConsumerKey());
@@ -315,7 +317,7 @@ private void saveTool(Lti2ProviderDomain tool, String domain, String domainStatu
 							String sendRole, String sendEmail, String userAck, String userAckMsgtext ) {
 		//set all prefs to incoming request parameter values
 		tool.setDomain(domain);
-		tool.enableDomain(Boolean.valueOf(domainStatus));
+		tool.setDomainStatus(Integer.valueOf(domainStatus));
 		tool.setSecHostNames(secondaryHostnames);
 		tool.setDomainConfigGlobally(Boolean.valueOf(defaultConfig));
 		tool.setConsumerKey(toolKey);

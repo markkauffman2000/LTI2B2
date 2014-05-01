@@ -37,7 +37,7 @@ public class Lti2RegistrationController {
 	@Autowired
 	private Lti2ProviderDomainDAO _toolDAO;
 	
-	@RequestMapping( "/register" )
+	@RequestMapping( "/createDomain" )
 	public ModelAndView create( HttpServletRequest request, HttpServletResponse response )
 	{
 		ModelAndView mv = new ModelAndView("register");
@@ -76,10 +76,10 @@ public class Lti2RegistrationController {
 		
 		if(toolIds.length == 0) {
 			tool = createNewTool();
-			saveTool(tool, domain, domainStatus, secondaryHostnames, defaultConfig, 
-						toolKey, toolSecret, customParameters, postGrades, getGrades, 
-						toolConfig, sendData, sendName, sendRole, sendEmail, 
-						userAck, userAckMsgtext);
+			saveTool(tool, tool.getDomain(), Integer.toString(tool.getDomainStatus()), tool.getSecHostNames(), Boolean.toString(tool.isDomainConfiguredGlobally()), 
+						tool.getConsumerKey(), tool.getSharedSecret(), tool.getCustomParams(), Boolean.toString(tool.isPostGradesEnabled()), Boolean.toString(tool.isGetGradesEnabled()), 
+						Boolean.toString(tool.isToolSettingsEnabled()), Integer.toString(tool.getSendDataConfig()), Boolean.toString(tool.isSendNameEnabled()), Boolean.toString(tool.isSendRoleEnabled()), 
+						Boolean.toString(tool.isSendEMailEnabled()), Boolean.toString(tool.isSplashScreenEnabled()), tool.getSplashScreenMessage());
 			
 		} else {
 			for (int i = 0; i < toolIds.length; i++) {
@@ -266,7 +266,7 @@ public class Lti2RegistrationController {
 		Lti2ProviderDomain tool = new Lti2ProviderDomain();
 		
 		tool.setDomain("");
-		tool.setDomainStatus(Integer.parseInt(BBDNConstants.BBDN_TOOL_PENDING));
+		tool.setDomainStatus(0);
 		tool.setSecHostNames("");
 		tool.setDomainConfigGlobally(true);
 		tool.setConsumerKey("");
