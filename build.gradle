@@ -10,7 +10,7 @@ version "1.0-SNAPSHOT"
 project.ext {
   learnVersion = "9.1.110082.0"
   springVersion = "3.1.1.RELEASE"
-  hibernateVersion = "4.1.10.Final"
+  hibernateVersion = "4.3.11.Final"
   deployServer = System.getenv("GRADLE_DEPLOY_SERVER")
   deployInstance = System.getenv("GRADLE_DEPLOY_INSTANCE")
 }

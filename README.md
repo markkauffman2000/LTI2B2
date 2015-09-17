@@ -9,9 +9,14 @@ To build the project, just run:
 gradle build
 
 ### Deploying
-If using the vagrant VM image provided by Blackboard, the build.gradle file is set up to deploy to localhost:9876. You can simply run:
+If using the vagrant VM image provided by Blackboard, set the following environment variables
+GRADLE_DEPLOY_SERVER=localhost:9876
+GRADLE_DEPLOY_INSTANCE=BBLEARN
 
-gradle deployB2
+so that the build.gradle file will deploy to localhost:9876. On an nix system you can simply run:
 
-To deploy to another Learn server, change the remoteServer and remoteInstance variables in build.gradle first.
 
+. ./env.vagrant
+./gradlew deployB2
+
+To deploy to another Learn server, change the GRADLE_DEPLOY_SERVER and GRADLE_DEPLOY_INSTANCE environment variables first.
