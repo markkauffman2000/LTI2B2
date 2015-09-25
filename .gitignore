@@ -1,7 +1,9 @@
 .build.gradle.swp
 .gradle
+.nb-gradle
 build
 bin
+private
 .classpath
 .project
 .settings

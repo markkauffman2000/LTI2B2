@@ -147,7 +147,7 @@
     </primary-key>
   
   </table>
-  
+  <!-- Remember, all custom schema elements must start with your vendor ID. -->
   <table name="bbdn_lti2_tools">
   	<comment>This table contains the settings for each individual tool provider domain</comment>
   	
@@ -242,7 +242,7 @@
     </primary-key>
   
   </table>
-  
+  <!-- Remember, all custom schema elements must start with your vendor ID. -->
   <table name="bbdn_lti2_links">
   	<comment>This table contains all of the LTI2 links</comment>
   	
@@ -275,6 +275,25 @@
     </foreign-key>
   
   </table>
+  
+  <!-- Remember, all custom schema elements must start with your vendor ID.                        -->
+  <!-- bbdn_lti2 tables for bbdn.lti2.dao classes that represent org.imsglobal.lti2.objects follow -->
+  <!-- in alpha order. -->
+    <table name="bbdn_lti2_contacts">
+  	<comment>This table stores the lti2 contacts objects </comment>
+    
+    <column name="pk1" data-type="int" nullable="false" identity="true" comment="This is the surrogate primary key for the table." />
+    
+    <column name="email" data-type="VARCHAR(256)" nullable="false" comment="Unique identifier for Contact"/>
+    
+        <column name="additional_properties" data-type="text" nullable="true" comment = "JSON that is converted to a Map"/>
+    
+    <primary-key name="bbdn_lti2_contacts_pk" comment="This is the name of primary key constraint on column pk1.">
+      <columnref name="pk1" />
+    </primary-key>
+  
+  </table>
+  <!-- END Remember, all custom schema elements must start with your vendor ID.                    -->
   
   <post-schema-update>
         <sql-script name="insert_default_values.sql" comment="Populate global settings with secure defaults if not currently populated with data."/>
