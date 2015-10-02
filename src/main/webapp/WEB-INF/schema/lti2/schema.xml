@@ -291,6 +291,10 @@
     <primary-key name="bbdn_lti2_contacts_pk" comment="This is the name of primary key constraint on column pk1.">
       <columnref name="pk1" />
     </primary-key>
+    
+     <index name="bbdn_lti2_ixem" unique="true">
+      <columnref name="email" />
+    </index>
   
   </table>
   <!-- END Remember, all custom schema elements must start with your vendor ID.                    -->

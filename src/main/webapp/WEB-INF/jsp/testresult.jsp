@@ -19,7 +19,7 @@
         navItem="bbdn-lti2-app-nav-1">
 
         <bbNG:pageHeader 
-        	instructions="This page shows your test result.">
+        	instructions="This page shows the test result.">
         	
         	<bbNG:breadcrumbBar environment="SYS_ADMIN" />
             
