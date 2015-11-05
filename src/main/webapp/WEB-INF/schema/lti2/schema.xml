@@ -279,7 +279,7 @@
   <!-- Remember, all custom schema elements must start with your vendor ID.                        -->
   <!-- bbdn_lti2 tables for bbdn.lti2.dao classes that represent org.imsglobal.lti2.objects follow -->
   <!-- in alpha order. -->
-    <table name="bbdn_lti2_contacts">
+  <table name="bbdn_lti2_contacts">
   	<comment>This table stores the lti2 contacts objects </comment>
     
     <column name="pk1" data-type="int" nullable="false" identity="true" comment="This is the surrogate primary key for the table." />
@@ -294,10 +294,33 @@
     
      <index name="bbdn_lti2_ixem" unique="true">
       <columnref name="email" />
+     </index>
+  
+   </table>
+  
+    <!-- Remember, all custom schema elements must start with your vendor ID.                        -->
+    <table name="bbdn_lti2_description">
+  	<comment>This table stores the lti2 description objects </comment>
+    
+    <column name="pk1" data-type="int" nullable="false" identity="true" comment="This is the surrogate primary key for the table." />
+    
+    <column name="key" data-type="VARCHAR(256)" nullable="false" comment="Identifier for the description"/>
+ 
+    <column name="default_value" data-type="text" nullable="false" comment="The description"/>
+       
+    <column name="additional_properties" data-type="text" nullable="true" comment = "JSON that is converted to a Map"/>
+    
+    <primary-key name="bbdn_lti2_description_pk" comment="This is the name of primary key constraint on column pk1.">
+      <columnref name="pk1" />
+    </primary-key>
+    
+     <index name="bbdn_lti2_ixdesc" unique="false">
+      <columnref name="key" />
     </index>
   
   </table>
-  <!-- END Remember, all custom schema elements must start with your vendor ID.                    -->
+
+  <!-- END bbdn_lti2 tables in alpha order. Remember, all custom schema elements must start with your vendor ID.                    -->
   
   <post-schema-update>
         <sql-script name="insert_default_values.sql" comment="Populate global settings with secure defaults if not currently populated with data."/>

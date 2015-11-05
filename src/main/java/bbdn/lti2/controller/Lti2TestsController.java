@@ -15,6 +15,8 @@ import org.imsglobal.lti2.objects.*;
 
 import bbdn.lti2.beans.Lti2Contact;
 import bbdn.lti2.dao.Lti2ContactDAO;
+import bbdn.lti2.beans.Lti2Description;
+import bbdn.lti2.dao.Lti2DescriptionDAO;
 import blackboard.base.FormattedText;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +26,8 @@ public class Lti2TestsController {
 
 	@Autowired
 	private Lti2ContactDAO _contactDAO;
+        
+        @Autowired Lti2DescriptionDAO _descriptionDAO;
 	
 	@RequestMapping("/lti2contacttest")
 	public ModelAndView lti2contacttest( HttpServletRequest request, HttpServletResponse response )
