@@ -70,6 +70,51 @@ public class Lti2TestsController {
             }
             mv.addObject("result", result);
             return mv;   
-	}
+	}//public ModelAndView lti2contacttest(
+        
+	@RequestMapping("/lti2descriptiontest")
+	public ModelAndView lti2descriptiontest( HttpServletRequest request, HttpServletResponse response )
+	{
+            String result = "";
+            ModelAndView mv = new ModelAndView("testresult");
+            ArrayList<String> obj = new ArrayList<String>();
+
+            /*This is how elements should be added to the array list*/
+            obj.add("Ajeet");
+            obj.add("Harry");
+            obj.add("Chaitanya");
+            
+            Lti2Description startLti2Description = new Lti2Description();
+            Description description = new Description("The default_value is the description text. The Description key on construction is product.vendor.description");
+            description.setAdditionalProperties("arrayList", obj);
+            description.setAdditionalProperties("phone", "1-785-123-4567");
+            description.setAdditionalProperties("age", 27);
+           
+            startLti2Description.setDescription(description);
+            
+            Lti2Description existingDescription = _descriptionDAO.loadByKey(description.getKey());
+            
+            if ( existingDescription == null)
+                _descriptionDAO.save(startLti2Description);
+            else {
+                existingDescription.setDescription(description);
+                _descriptionDAO.update(existingDescription);
+            }
+            
+            Lti2Description lti2contact = _descriptionDAO.loadByKey(description.getKey());
+            
+            if (lti2contact == null){
+                result = "There was a problem with Lti2DescriptionDAO testing save, update, or loadByEmail.";
+            } else {
+                Description theDescription = lti2contact.getDescription();
+                result = theDescription.getKey();
+                String desString = theDescription.getDefault_value();
+                result = result + " default_value:" + desString;
+                String age = (String) theDescription.getAdditionalProperties().get("age").toString();
+                result = result + " age:" + age;
+            }
+            mv.addObject("result", result);
+            return mv;   
+	}//public ModelAndView lti2descriptiontest(        
 
 }// Lti2TestsController

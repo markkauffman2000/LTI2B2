@@ -23,7 +23,7 @@ import org.codehaus.jackson.annotate.JsonAnySetter;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonPropertyOrder;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
-// This Lti2Contact class "wraps" an org.imsglobal.lti2.objects.Contact
+// This Lti2Description class "wraps" an org.imsglobal.lti2.objects.Description
 import org.imsglobal.lti2.objects.Description;
 
 @Table("bbdn_lti2_description")
@@ -145,7 +145,7 @@ public class Lti2Description  extends AbstractIdentifiable {
                     }
                     
                     return this.description;
-                }// getContact
+                }// getDescription
                 
                 // Turn the LTI object into data we store in the DB table.
                 public void setDescription(Description description){
@@ -171,4 +171,4 @@ public class Lti2Description  extends AbstractIdentifiable {
                     
                 }// setDescription
                 
-} // public class Lti2Contact
+} // public class Lti2Description
